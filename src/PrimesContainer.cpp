@@ -31,7 +31,7 @@ static const int_fast64_t wheel210[wheelSize] = {10, 2, 4, 2, 4, 6, 2, 6, 4, 2,
                                                   2, 4, 6, 2, 6, 6, 4, 2, 4, 6,
                                                   2, 6, 4, 2, 4, 2, 10, 2};
 
-#define firstPriSize (sizeof(firstPrimes) / sizeof(firstPrimes[0]))
+constexpr unsigned long int firstPriSize = (sizeof(firstPrimes) / sizeof(firstPrimes[0]));
 
 template <typename typeReturn, typename typePrime>
 std::vector<typeReturn> AllPrimesCpp (typePrime minNum,
@@ -67,10 +67,10 @@ std::vector<typeReturn> AllPrimesCpp (typePrime minNum,
     if (bAddZero) myPrimes.push_back(0);
     std::size_t i = 0;
 
-    if (maxNum < segmentSize || minNum <= 13)
+    if (maxNum < firstPrimes[firstPriSize - 1] || minNum <= 13)
         for (; firstPrimes[i] < minNum; ++i) {}
 
-    if (maxNum < segmentSize) {
+    if (maxNum < firstPrimes[firstPriSize - 1]) {
         for (; firstPrimes[i] <= maxNum; ++i) 
             myPrimes.push_back((typeReturn) firstPrimes[i]);
         
@@ -86,7 +86,7 @@ std::vector<typeReturn> AllPrimesCpp (typePrime minNum,
         numSegments = (unsigned int) ceil((double) sqrtBound / maxVal210);
         segmentSize = numSegments * maxVal210;
     }
-     
+    
     std::vector<int_fast64_t> smallPrimes, nextStrt;
     int_fast64_t flrMaxNum = segmentSize * floor((double) maxNum / segmentSize);
 
