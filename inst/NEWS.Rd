@@ -1,6 +1,12 @@
 \name{NEWS}
 \title{News for Package \pkg{RcppAlgos}}
 
+\section{Changes in RcppAlgos version 2.2.1 (Release date: 2018-11-26)}{
+    \itemize{
+        \item Fixed bug associated with primeSieve for numbers between sqrt(1e9) and 2*3*5*7.
+    }
+}
+
 \section{Changes in RcppAlgos version 2.2.0 (Release date: 2018-09-15)}{
     \itemize{
         \item Disabled \code{Parallel} argument as it was causing unpredictable errors on certain platforms. Research is ongoing to correct this for use in future versions. The development version will retain this feature.

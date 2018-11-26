@@ -4,7 +4,7 @@
 \docType{package}
 
 \title{
-Tools for Combinatorics and Computational Mathematics
+High Performance Tools for Combinatorics and Computational Mathematics
 }
 
 \description{

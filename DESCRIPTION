@@ -1,5 +1,5 @@
 Package: RcppAlgos
-Version: 2.2.0
+Version: 2.2.1
 Title: High Performance Tools for Combinatorics and Computational Mathematics
 Description: Provides optimized functions implemented in C++ with 'Rcpp'
     for solving problems in combinatorics and computational mathematics.
@@ -31,7 +31,7 @@ LinkingTo: Rcpp
 Suggests: testthat, numbers (>= 0.6-6), bigIntegerAlgos, microbenchmark
 License: GPL (>=2)
 LazyData: TRUE
-SystemRequirements: gmp (>= 4.2.3)
+SystemRequirements: gmp (>= 4.2.3), C++11
 NeedsCompilation: yes
 Author: Joseph Wood
 Maintainer: Joseph Wood <jwood000@gmail.com>
