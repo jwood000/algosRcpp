@@ -47,7 +47,8 @@ inline void SetSampleNames(bool IsGmp, std::size_t sampSize, typeRcpp &objRcpp,
             mpz_add_ui(myBigSamp[i], myBigSamp[i], 1);
             auto buffer = FromCpp14::make_unique<char[]>(mpz_sizeinbase(myBigSamp[i], base10) + 2);
             mpz_get_str(buffer.get(), base10, myBigSamp[i]);
-            myRowNames[i] = Rf_mkChar(buffer.get());
+            const std::string tempRowName = buffer.get();
+            myRowNames[i] = tempRowName;
         }
     } else {
         for (std::size_t i = 0; i < sampSize; ++i)

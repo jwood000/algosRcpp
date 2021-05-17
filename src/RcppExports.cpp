@@ -5,20 +5,6 @@
 
 using namespace Rcpp;
 
-// comboGridRcpp
-SEXP comboGridRcpp(Rcpp::List RList, std::vector<int> IsFactor, bool IsRep, std::size_t sumLength);
-RcppExport SEXP _RcppAlgos_comboGridRcpp(SEXP RListSEXP, SEXP IsFactorSEXP, SEXP IsRepSEXP, SEXP sumLengthSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Rcpp::List >::type RList(RListSEXP);
-    Rcpp::traits::input_parameter< std::vector<int> >::type IsFactor(IsFactorSEXP);
-    Rcpp::traits::input_parameter< bool >::type IsRep(IsRepSEXP);
-    Rcpp::traits::input_parameter< std::size_t >::type sumLength(sumLengthSEXP);
-    rcpp_result_gen = Rcpp::wrap(comboGridRcpp(RList, IsFactor, IsRep, sumLength));
-    return rcpp_result_gen;
-END_RCPP
-}
 // CheckReturn
 int CheckReturn(SEXP Rv, SEXP f1, SEXP f2, SEXP Rtarget, bool IsFactor, SEXP RKeepRes, SEXP stdFun);
 RcppExport SEXP _RcppAlgos_CheckReturn(SEXP RvSEXP, SEXP f1SEXP, SEXP f2SEXP, SEXP RtargetSEXP, SEXP IsFactorSEXP, SEXP RKeepResSEXP, SEXP stdFunSEXP) {
@@ -288,7 +274,6 @@ RcppExport SEXP _rcpp_module_boot_Combo();
 RcppExport SEXP _rcpp_module_boot_ComboFUN();
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_RcppAlgos_comboGridRcpp", (DL_FUNC) &_RcppAlgos_comboGridRcpp, 4},
     {"_RcppAlgos_CheckReturn", (DL_FUNC) &_RcppAlgos_CheckReturn, 7},
     {"_RcppAlgos_CombinatoricsStndrd", (DL_FUNC) &_RcppAlgos_CombinatoricsStndrd, 11},
     {"_RcppAlgos_CombinatoricsApply", (DL_FUNC) &_RcppAlgos_CombinatoricsApply, 9},

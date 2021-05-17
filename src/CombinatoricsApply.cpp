@@ -72,32 +72,8 @@ SEXP CombinatoricsApply(SEXP Rv, SEXP Rm, SEXP RisRep, SEXP RFreqs, SEXP Rlow,
     SetNumResults(IsGmp, bLower, bUpper, false, upperMpz.get(), lowerMpz.get(),
                   lower, upper, computedRows, computedRowsMpz, nRows, userNumRows);
     
-    switch (myType) {
-        case VecType::Character : {
-            Rcpp::CharacterVector charVec(Rcpp::clone(Rv));
-            return ApplyFunction(charVec, n, m, IsRep, nRows,IsComb,
-                                 freqs, startZ, IsMult, stdFun, myEnv);
-        } case VecType::Complex : {
-            Rcpp::ComplexVector cmplxVec(Rcpp::clone(Rv));
-            return ApplyFunction(cmplxVec, n, m, IsRep, nRows,IsComb,
-                                 freqs, startZ, IsMult, stdFun, myEnv);
-        } case VecType::Raw : {
-            Rcpp::RawVector rawVec(Rcpp::clone(Rv));
-            return ApplyFunction(rawVec, n, m, IsRep, nRows,IsComb,
-                                 freqs, startZ, IsMult, stdFun, myEnv);
-        } case VecType::Logical : {
-            Rcpp::LogicalVector boolVec(Rcpp::clone(Rv));
-            return ApplyFunction(boolVec, n, m, IsRep, nRows,IsComb,
-                                 freqs, startZ, IsMult, stdFun, myEnv);
-        } case VecType::Integer : {
-            Rcpp::IntegerVector intVec = Rcpp::wrap(vInt);
-            return ApplyFunction(intVec, n, m, IsRep, nRows,IsComb,
-                                 freqs, startZ, IsMult, stdFun, myEnv);
-        } default : {
-            Rcpp::NumericVector numVec = Rcpp::wrap(vNum);
-            return ApplyFunction(numVec, n, m, IsRep, nRows,IsComb,
-                                 freqs, startZ, IsMult, stdFun, myEnv);
-        }
-    }
+    const SEXP sexpCopy = CopyRv(Rv, vInt, vNum, myType);
+    RCPP_RETURN_VECTOR(ApplyFunction, sexpCopy, n, m, IsRep, nRows,
+                       IsComb, freqs, startZ, IsMult, stdFun, myEnv);
 }
 

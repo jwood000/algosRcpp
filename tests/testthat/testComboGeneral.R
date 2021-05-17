@@ -19,6 +19,9 @@ test_that("comboGeneral produces correct results with no constraints", {
     expect_equal(comboGeneral(15, 8)[500:600, ], comboGeneral(15, 8,
                                                               lower = 500,
                                                               upper = 600))
+    expect_equal(dim(comboGeneral(as.complex(1:5), 5, T)), 
+                 dim(comboGeneral(as.raw(1:5), 5, T)))
+    
     expect_equal(comboGeneral(5, 5), 
                  comboGeneral(5, 5, freqs = rep(1, 5)))
     

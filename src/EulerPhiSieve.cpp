@@ -13,6 +13,7 @@ namespace MotleyPrimes {
         const typeInt n = static_cast<typeInt>(retN);
         const typeInt myRange = (n - m) + 1;
         
+        typeInt myNum = m;
         const double myLogN = std::log(n);
         typeReturn retNum = static_cast<typeReturn>(m);
         
@@ -27,13 +28,13 @@ namespace MotleyPrimes {
             const std::int_fast64_t intMin = static_cast<std::int_fast64_t>(m);
             const std::int_fast64_t intMax = static_cast<std::int_fast64_t>(retN);
             std::vector<std::vector<typeInt>> tempList;
-            PrimeSieve::PrimeSieveMain(intMin, intMax, fullPrimes, tempList, tempPar);
+            PrimeSieve::PrimeSieveMaster(intMin, intMax, fullPrimes, tempList, tempPar);
             typename std::vector<typeInt>::iterator p;
             
             for (p = fullPrimes.begin(); p < fullPrimes.end(); ++p) {
                 const libdivide::divider<typeInt> fastDiv(*p);
                 for (typeInt j = (*p - 1); j < n; j += *p) {
-                    typeInt myNum = static_cast<typeInt>(EulerPhis[j]);
+                    myNum = static_cast<typeInt>(EulerPhis[j]);
                     myNum /= fastDiv;
                     EulerPhis[j] -= static_cast<typeReturn>(myNum);
                 }
@@ -50,7 +51,7 @@ namespace MotleyPrimes {
                 
                 for (typeInt j = myStart; j < offsetRange; j += *p) {
                     numSeq[j] /= fastDiv;
-                    typeInt myNum = static_cast<typeInt>(EulerPhis[j]);
+                    myNum = static_cast<typeInt>(EulerPhis[j]);
                     myNum /= fastDiv;
                     EulerPhis[j] -= static_cast<typeReturn>(myNum);
                 }
@@ -66,7 +67,7 @@ namespace MotleyPrimes {
             
             for (typeInt i = offsetStrt; i < offsetRange; ++i) {
                 if (numSeq[i] > 1) {
-                    typeInt myNum = static_cast<typeInt>(EulerPhis[i]);
+                    myNum = static_cast<typeInt>(EulerPhis[i]);
                     myNum /= numSeq[i];
                     EulerPhis[i] -= static_cast<typeReturn>(myNum);
                 }

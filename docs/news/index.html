@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -53,7 +57,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -67,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RcppAlgos</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.1</span>
       </span>
     </div>
 
@@ -118,7 +122,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/jwood000/RcppAlgos">
+  <a href="https://github.com/jwood000/RcppAlgos/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -136,12 +140,31 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
+      <h1 data-toc-skip>Changelog <small></small></h1>
       <small>Source: <a href='https://github.com/jwood000/RcppAlgos/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="rcppalgos-242" class="section level1">
+<h1 class="page-header" data-toc-text="2.4.2">
+<a href="#rcppalgos-242" class="anchor"></a>RcppAlgos 2.4.2<small> Unreleased </small>
+</h1>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>New Features:</h2>
+<ul>
+<li>Added function <code>comboGrid</code> for efficiently generating the cartesian product where order does not matter.</li>
+</ul>
+</div>
+<div id="enhancements" class="section level2">
+<h2 class="hasAnchor">
+<a href="#enhancements" class="anchor"></a>Enhancements:</h2>
+<ul>
+<li>Refactored code base to reduce binary size</li>
+</ul>
+</div>
+</div>
     <div id="rcppalgos-241" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.4.1">
 <a href="#rcppalgos-241" class="anchor"></a>RcppAlgos 2.4.1<small> 2020-03-24 </small>
 </h1>
 <div id="bug-fixes" class="section level2">
@@ -153,20 +176,20 @@
 </div>
 </div>
     <div id="rcppalgos-240" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.4.0">
 <a href="#rcppalgos-240" class="anchor"></a>RcppAlgos 2.4.0<small> Unreleased </small>
 </h1>
-<div id="new-features" class="section level2">
+<div id="new-features-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features" class="anchor"></a>New Features:</h2>
+<a href="#new-features-1" class="anchor"></a>New Features:</h2>
 <ul>
 <li><p>Added <code>comboIter</code> and <code>permuteIter</code>. These functions return iterators for iterating over combinations and permutations. They have a similar interface to <code>comboGeneral</code> and <code>permuteGeneral</code> and currently only work with standard combinations and permutations. They do not yet work with constraints (This will be the focus of the next release).</p></li>
 <li><p>Added “High Performance Benchmarks” and “Combinatorial Iterators in RcppAlgos” vignettes</p></li>
 </ul>
 </div>
-<div id="enhancements" class="section level2">
+<div id="enhancements-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#enhancements" class="anchor"></a>Enhancements:</h2>
+<a href="#enhancements-1" class="anchor"></a>Enhancements:</h2>
 <ul>
 <li>Now able to interrupt general constraint problems (See <a href="https://jwood000.github.io/RcppAlgos/articles/CombPermConstraints.html#safely-interrupt-execution-with-rcppcheckuserinterrupt">Interrupt Execution with Rcpp::checkUserInterrupt</a>)</li>
 </ul>
@@ -181,7 +204,7 @@
 </div>
 </div>
     <div id="rcppalgos-236" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.3.6">
 <a href="#rcppalgos-236" class="anchor"></a>RcppAlgos 2.3.6<small> 2020-01-29 </small>
 </h1>
 <div id="bug-fixes-2" class="section level2">
@@ -193,12 +216,12 @@
 </div>
 </div>
     <div id="rcppalgos-235" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.3.5">
 <a href="#rcppalgos-235" class="anchor"></a>RcppAlgos 2.3.5<small> 2020-01-26 </small>
 </h1>
-<div id="new-features-1" class="section level2">
+<div id="new-features-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#new-features-1" class="anchor"></a>New Features:</h2>
+<a href="#new-features-2" class="anchor"></a>New Features:</h2>
 <ul>
 <li><p>Added <code>comboGroups</code>, <code>comboGroupsCount</code>, and <code>comboGroupsSample</code>. These functions deal with partitioning a vector/set into groups of equal size. See <a href="https://stackoverflow.com/q/57732672/4408538Create">Combinations in R by Groups</a>. See the related integer sequences A025035-A025042 at <a href="https://oeis.orgOEIS" class="uri">https://oeis.orgOEIS</a> (E.g. <a href="https://oeis.org/A025036A025036" class="uri">https://oeis.org/A025036A025036</a> for Number of partitions of <code>(1, 2, ..., 4n)</code> into sets of size 4.)</p></li>
 <li><p>Added vignettes (First version with vignettes)</p></li>
@@ -206,11 +229,11 @@
 <li><p>Now using C++11 instead of C++14. See <a href="https://github.com/jwood000/RcppAlgos/issues/10">Issue <a href='https://github.com/jwood000/RcppAlgos/issues/10'>#10</a></a> for more information.</p></li>
 </ul>
 </div>
-<div id="enhancements-1" class="section level2">
+<div id="enhancements-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#enhancements-1" class="anchor"></a>Enhancements:</h2>
+<a href="#enhancements-2" class="anchor"></a>Enhancements:</h2>
 <ul>
-<li><p>Extended general partitions algorithm to multisets. E.g. <code><a href="../reference/combinatoricsGeneral.html">comboGeneral(10, 8, freqs = rep(1:5, 2), constraintFun = "sum", comparisonFun = "==", limitConstraints = 55)</a></code></p></li>
+<li><p>Extended general partitions algorithm to multisets. E.g. <code><a href="../reference/comboGeneral.html">comboGeneral(10, 8, freqs = rep(1:5, 2), constraintFun = "sum", comparisonFun = "==", limitConstraints = 55)</a></code></p></li>
 <li><p>Improved constraint algorithm for the general case.</p></li>
 <li><p>Added support for complex and raw types for all combinatorial functions.</p></li>
 <li><p>Improved permutation algorithm for all cases (I.e. no rep, with rep, and with multisets).</p></li>
@@ -227,7 +250,7 @@
 </div>
 </div>
     <div id="rcppalgos-234" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.3.4">
 <a href="#rcppalgos-234" class="anchor"></a>RcppAlgos 2.3.4<small> 2019-07-03 </small>
 </h1>
 <ul>
@@ -235,7 +258,7 @@
 </ul>
 </div>
     <div id="rcppalgos-233" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.3.3">
 <a href="#rcppalgos-233" class="anchor"></a>RcppAlgos 2.3.3<small> 2019-06-30 </small>
 </h1>
 <ul>
@@ -246,7 +269,7 @@
 </ul>
 </div>
     <div id="rcppalgos-232" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.3.2">
 <a href="#rcppalgos-232" class="anchor"></a>RcppAlgos 2.3.2<small> 2019-04-14 </small>
 </h1>
 <ul>
@@ -255,7 +278,7 @@
 </ul>
 </div>
     <div id="rcppalgos-231" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.3.1">
 <a href="#rcppalgos-231" class="anchor"></a>RcppAlgos 2.3.1<small> 2019-03-21 </small>
 </h1>
 <ul>
@@ -264,18 +287,36 @@
 </ul>
 </div>
     <div id="rcppalgos-230" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.3.0">
 <a href="#rcppalgos-230" class="anchor"></a>RcppAlgos 2.3.0<small> 2019-03-17 </small>
 </h1>
+<div id="new-features-3" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features-3" class="anchor"></a>New Features:</h2>
+<ul>
+<li>Added <code>stdThreadMax</code> for obtaining the number of threads available on a machine</li>
+</ul>
+</div>
+<div id="enhancements-3" class="section level2">
+<h2 class="hasAnchor">
+<a href="#enhancements-3" class="anchor"></a>Enhancements:</h2>
 <ul>
 <li><p>All functions now have parallel capabilites via <code>RcppThread</code>.</p></li>
 <li><p>Utilizes <code>RMatrix.h</code> from <code>RcppParallel</code> for thread safe matrix class.</p></li>
 <li><p>Major overhaul of primeSieve for large primes.</p></li>
-<li><p>Added <code>stdThreadMax</code> for obtaining the number of threads available on a machine</p></li>
 </ul>
 </div>
+<div id="bug-fixes-4" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes-4" class="anchor"></a>Bug Fixes:</h2>
+<ul>
+<li>Corrected <code>primeCount</code> for values around <code>1e9</code>. See <a href="https://github.com/jwood000/RcppAlgos/issues/14">Issue <a href='https://github.com/jwood000/RcppAlgos/issues/14'>#14</a></a>
+</li>
+</ul>
+</div>
+</div>
     <div id="rcppalgos-220" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.2.0">
 <a href="#rcppalgos-220" class="anchor"></a>RcppAlgos 2.2.0<small> 2018-09-14 </small>
 </h1>
 <ul>
@@ -284,30 +325,30 @@
 </ul>
 </div>
     <div id="rcppalgos-210" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.1.0">
 <a href="#rcppalgos-210" class="anchor"></a>RcppAlgos 2.1.0<small> 2018-09-11 </small>
 </h1>
 <ul>
 <li>
 <p>Added argument <code>Parallel</code> to general and sampling functions for increased gains in efficiency.</p>
 <ul>
-<li><p><code><a href="../reference/combinatoricsGeneral.html">comboGeneral(30, 10, Parallel = TRUE)</a></code></p></li>
-<li><p><code><a href="../reference/combinatoricsGeneral.html">permuteGeneral(12, 7, TRUE, constraintFun = "sum", Parallel = TRUE)</a></code></p></li>
+<li><p><code><a href="../reference/comboGeneral.html">comboGeneral(30, 10, Parallel = TRUE)</a></code></p></li>
+<li><p><code><a href="../reference/comboGeneral.html">permuteGeneral(12, 7, TRUE, constraintFun = "sum", Parallel = TRUE)</a></code></p></li>
 </ul>
 </li>
 <li><p>Logical class is now preserved in combinatorial functions</p></li>
 <li>
 <p>Added gmp support to combinatorial functions. Now, one can accurately and quickly work with combinations/permutations of large vectors <em>E.g.</em>:</p>
 <ul>
-<li><p><code><a href="../reference/combinatoricsSample.html">comboSample(runif(10000), 100, n = 10, seed = 42, Parallel = TRUE)</a></code></p></li>
-<li><p><code><a href="../reference/combinatoricsGeneral.html">permuteGeneral(factor(state.name), 20, lower = 1e15, upper = 1e15 + 1000)</a></code></p></li>
+<li><p><code><a href="../reference/comboSample.html">comboSample(runif(10000), 100, n = 10, seed = 42, Parallel = TRUE)</a></code></p></li>
+<li><p><code><a href="../reference/comboGeneral.html">permuteGeneral(factor(state.name), 20, lower = 1e15, upper = 1e15 + 1000)</a></code></p></li>
 </ul>
 </li>
 <li><p>Added <code>FUN</code> argument to all combinatorial functions. Allows user to pass custom functions to be applied to combinations/permutations.</p></li>
 </ul>
 </div>
     <div id="rcppalgos-203" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.0.3">
 <a href="#rcppalgos-203" class="anchor"></a>RcppAlgos 2.0.3<small> 2018-06-30 </small>
 </h1>
 <ul>
@@ -315,7 +356,7 @@
 </ul>
 </div>
     <div id="rcppalgos-202" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.0.2">
 <a href="#rcppalgos-202" class="anchor"></a>RcppAlgos 2.0.2<small> 2018-06-14 </small>
 </h1>
 <ul>
@@ -323,7 +364,7 @@
 </ul>
 </div>
     <div id="rcppalgos-201" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.0.1">
 <a href="#rcppalgos-201" class="anchor"></a>RcppAlgos 2.0.1<small> 2018-06-10 </small>
 </h1>
 <ul>
@@ -332,7 +373,7 @@
 </ul>
 </div>
     <div id="rcppalgos-200" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="2.0.0">
 <a href="#rcppalgos-200" class="anchor"></a>RcppAlgos 2.0.0<small> Unreleased </small>
 </h1>
 <ul>
@@ -347,7 +388,7 @@
 </ul>
 </div>
     <div id="rcppalgos-101" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.0.1">
 <a href="#rcppalgos-101" class="anchor"></a>RcppAlgos 1.0.1<small> 2018-03-10 </small>
 </h1>
 <ul>
@@ -358,7 +399,7 @@
 </ul>
 </div>
     <div id="rcppalgos-100" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="1.0.0">
 <a href="#rcppalgos-100" class="anchor"></a>RcppAlgos 1.0.0<small> 2018-03-07 </small>
 </h1>
 <ul>
@@ -371,7 +412,7 @@
 </ul>
 </div>
     <div id="rcppalgos-025" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2.5">
 <a href="#rcppalgos-025" class="anchor"></a>RcppAlgos 0.2.5<small> 2018-01-04 </small>
 </h1>
 <ul>
@@ -383,7 +424,7 @@
 </ul>
 </div>
     <div id="rcppalgos-024" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2.4">
 <a href="#rcppalgos-024" class="anchor"></a>RcppAlgos 0.2.4<small> 2017-12-18 </small>
 </h1>
 <ul>
@@ -391,7 +432,7 @@
 </ul>
 </div>
     <div id="rcppalgos-023" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2.3">
 <a href="#rcppalgos-023" class="anchor"></a>RcppAlgos 0.2.3<small> Unreleased </small>
 </h1>
 <ul>
@@ -400,7 +441,7 @@
 </ul>
 </div>
     <div id="rcppalgos-022" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2.2">
 <a href="#rcppalgos-022" class="anchor"></a>RcppAlgos 0.2.2<small> 2017-12-15 </small>
 </h1>
 <ul>
@@ -412,7 +453,7 @@
 </ul>
 </div>
     <div id="rcppalgos-021" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2.1">
 <a href="#rcppalgos-021" class="anchor"></a>RcppAlgos 0.2.1<small> 2017-11-29 </small>
 </h1>
 <ul>
@@ -421,7 +462,7 @@
 </ul>
 </div>
     <div id="rcppalgos-020" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.2.0">
 <a href="#rcppalgos-020" class="anchor"></a>RcppAlgos 0.2.0<small> 2017-11-28 </small>
 </h1>
 <ul>
@@ -433,7 +474,7 @@
 </ul>
 </div>
     <div id="rcppalgos-012" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.1.2">
 <a href="#rcppalgos-012" class="anchor"></a>RcppAlgos 0.1.2<small> 2017-11-03 </small>
 </h1>
 <ul>
@@ -442,7 +483,7 @@
 </ul>
 </div>
     <div id="rcppalgos-011" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.1.1">
 <a href="#rcppalgos-011" class="anchor"></a>RcppAlgos 0.1.1<small> 2017-11-03 </small>
 </h1>
 <ul>
@@ -452,7 +493,7 @@
 </ul>
 </div>
     <div id="rcppalgos-010" class="section level1">
-<h1 class="page-header">
+<h1 class="page-header" data-toc-text="0.1.0">
 <a href="#rcppalgos-010" class="anchor"></a>RcppAlgos 0.1.0<small> 2017-10-26 </small>
 </h1>
 <ul>
@@ -461,38 +502,10 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#rcppalgos-241">2.4.1</a></li>
-        <li><a href="#rcppalgos-240">2.4.0</a></li>
-        <li><a href="#rcppalgos-236">2.3.6</a></li>
-        <li><a href="#rcppalgos-235">2.3.5</a></li>
-        <li><a href="#rcppalgos-234">2.3.4</a></li>
-        <li><a href="#rcppalgos-233">2.3.3</a></li>
-        <li><a href="#rcppalgos-232">2.3.2</a></li>
-        <li><a href="#rcppalgos-231">2.3.1</a></li>
-        <li><a href="#rcppalgos-230">2.3.0</a></li>
-        <li><a href="#rcppalgos-220">2.2.0</a></li>
-        <li><a href="#rcppalgos-210">2.1.0</a></li>
-        <li><a href="#rcppalgos-203">2.0.3</a></li>
-        <li><a href="#rcppalgos-202">2.0.2</a></li>
-        <li><a href="#rcppalgos-201">2.0.1</a></li>
-        <li><a href="#rcppalgos-200">2.0.0</a></li>
-        <li><a href="#rcppalgos-101">1.0.1</a></li>
-        <li><a href="#rcppalgos-100">1.0.0</a></li>
-        <li><a href="#rcppalgos-025">0.2.5</a></li>
-        <li><a href="#rcppalgos-024">0.2.4</a></li>
-        <li><a href="#rcppalgos-023">0.2.3</a></li>
-        <li><a href="#rcppalgos-022">0.2.2</a></li>
-        <li><a href="#rcppalgos-021">0.2.1</a></li>
-        <li><a href="#rcppalgos-020">0.2.0</a></li>
-        <li><a href="#rcppalgos-012">0.1.2</a></li>
-        <li><a href="#rcppalgos-011">0.1.1</a></li>
-        <li><a href="#rcppalgos-010">0.1.0</a></li>
-      </ul>
-    </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 
 </div>
@@ -504,7 +517,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -1,7 +1,7 @@
 #include "CombPermResultPtr.h"
 #include "ConstraintsGeneral.h"
 #include "ConstraintsUtils.h"
-#include "PartitionsMain.h"
+#include "PartitionsMaster.h"
 #include "PartitionEsqueAlgo.h"
 #include "ConstraintsSpecial.h"
 #include "PartitionsCounts.h"
@@ -15,22 +15,26 @@ typeRcpp ConstraintReturn(int n, int m, const std::string &mainFun, const std::v
                           double lower, bool bUserRows, double computedRows, bool IsRep, int nRows, bool KeepRes,
                           std::vector<int> &z, bool IsMult, bool IsComb, bool mIsNull, double userNumRows,
                           std::vector<int> &myReps, const std::vector<int> &freqs, PartitionType PartType,
-                          ConstraintType ConstType, bool distGetAll) {
+                          bool distGetAll) {
     
     const bool SpecialCase = CheckSpecialCase(n, bLower, mainFun, v);
     
     if (SpecialCase) {
         return ConstraintsSpecial<typeRcpp>(n, m, v, IsRep, nRows, KeepRes, z, lower, mainFun, 
                                             IsMult, computedRows, compFunVec, targetVals, IsComb,
-                                            freqs, bLower, userNumRows);
+                                            myReps, freqs, bLower, userNumRows);
     }
     
     // For bool bUserRows, we pass bUpper as we know bLower must be false (See CheckSpecialCase)
-    if (ConstType > ConstraintType::PartitionEsque) {
-        return Partitions::PartitionsMain<typeRcpp>(v, z, myReps, PartType, targetVals[0], n, m, IsRep,
-                                                    IsMult, userNumRows, IsComb, KeepRes, bUserRows,
-                                                    mIsNull, distGetAll);
-    } else if (ConstType == ConstraintType::PartitionEsque) {
+    
+    if (PartType > PartitionType::PartitonEsque) {
+        const std::vector<int64_t> v64(v.cbegin(), v.cend());
+        const int64_t target64 = static_cast<int64_t>(targetVals[0]);
+        
+        return Partitions::PartitionsMaster<typeRcpp>(v64, z, myReps, PartType, target64, n, m, IsRep,
+                                                      IsMult, userNumRows, IsComb, KeepRes, bUserRows,
+                                                      mIsNull, distGetAll);
+    } else if (PartType == PartitionType::PartitonEsque) {
         return PartitionEsqueAlgo<typeRcpp>(n, m, v, IsRep, mainFun, compFunVec.front(), targetVals,
                                             userNumRows, IsComb, KeepRes, myReps, IsMult, bUserRows);
     } else {
@@ -40,10 +44,10 @@ typeRcpp ConstraintReturn(int n, int m, const std::string &mainFun, const std::v
 }
 
 template <typename typeRcpp, typename T>
-void MainResRet(typeRcpp &matRcpp, const std::vector<T> &v, funcPtr<T> myFun, int n, int m,
-                bool IsRep, bool IsComb, bool IsMult, bool IsGmp, const std::vector<int> &freqs,
-                std::vector<int> z, const std::vector<int> &myReps, double lower, mpz_t &lowerMpz,
-                int nRows, int nThreads, bool Parallel) {
+void MasterResRet(typeRcpp &matRcpp, const std::vector<T> &v, funcPtr<T> myFun, int n, int m,
+                  bool IsRep, bool IsComb, bool IsMult, bool IsGmp, const std::vector<int> &freqs,
+                  std::vector<int> z, const std::vector<int> &myReps, double lower, mpz_t &lowerMpz,
+                  int nRows, int nThreads, bool Parallel) {
     
     if (Parallel) {
         RcppParallel::RMatrix<T> parMat(matRcpp);
@@ -110,28 +114,20 @@ SEXP CombinatoricsCnstrt(SEXP Rv, SEXP Rm, SEXP RisRep, SEXP RFreqs, SEXP Rlow,
     
     SetFreqsAndM(RFreqs, IsMult, myReps, IsRep, lenFreqs, freqs, Rm, n, m);
     const std::string mainFun = Rcpp::as<std::string>(f1);
-    const auto funIt = std::find(mainFunSet.begin(), mainFunSet.end(), mainFun);
     
-    if (funIt == mainFunSet.end()) {
+    if (mainFun != "prod" && mainFun != "sum" && mainFun != "mean"
+            && mainFun != "max" && mainFun != "min") {
         Rcpp::stop("contraintFun must be one of the following: prod, sum, mean, max, or min");
     }
     
     std::vector<std::string> compFunVec;
     std::vector<double> targetVals;
     
-    ConstraintType ConstType = ConstraintType::General;
-    PartitionType PartType = PartitionType::Traditional;
+    PartitionType PartType = PartitionType::NotPartition;
     distinctType distinctTest;
-    
-    const bool allNeg = std::all_of(vNum.cbegin(), vNum.cend(),
-                                    [](double v_i) {return v_i <= 0;});
-    const bool allPos = std::all_of(vNum.cbegin(), vNum.cend(),
-                                    [](double v_i) {return v_i >= 0;});
-    const Sign mySign = allPos ? Sign::Positive : 
-                       (allNeg ? Sign::Negitive : Sign::MixedBag);
-    
+
     // Must be defined inside IsInteger check as targetVals could be
-    // outside integer data type range which causes undefined behavior
+    // outside integer data type range which cause undefined behavior
     std::vector<int> targetIntVals;
 
     Rcpp::XPtr<funcPtr<double>> xpFunDbl = putFunPtrInXPtr<double>(mainFun);
@@ -144,80 +140,35 @@ SEXP CombinatoricsCnstrt(SEXP Rv, SEXP Rm, SEXP RisRep, SEXP RFreqs, SEXP Rlow,
         bool IsBetweenComp = false;
         ConstraintSetup(compFunVec, targetVals, IsBetweenComp);
         
-        if (myType == VecType::Integer && !CheckIsInteger(mainFun, n, m, vNum, targetVals, funDbl, true)) {
-            myType = VecType::Numeric;
-        }
+        if (myType == VecType::Integer)
+            if (!CheckIsInteger(mainFun, n, m, vNum, targetVals, funDbl, true))
+                myType = VecType::Numeric;
         
         double tolerance = 0;
         AdjustTargetVals(n, myType, targetVals, targetIntVals,
                          Rtolerance, compFunVec, tolerance, mainFun, vNum);
         
         if (myType == VecType::Integer) {
-            GetPartitionCase(compFunVec, vInt, mainFun, targetIntVals, mySign,
-                             PartType, ConstType, distinctTest, Rlow, myReps, n, m,
+            GetPartitionCase(compFunVec, vInt, mainFun, targetIntVals,
+                             PartType, distinctTest, Rlow, myReps, n, m,
                              tolerance, IsMult, IsRep, IsBetweenComp, Rf_isNull(Rm));
         } else {
-            GetPartitionCase(compFunVec, vNum, mainFun, targetVals, mySign,
-                             PartType, ConstType, distinctTest, Rlow, myReps, n, m,
+            GetPartitionCase(compFunVec, vNum, mainFun, targetVals,
+                             PartType, distinctTest, Rlow, myReps, n, m,
                              tolerance, IsMult, IsRep, IsBetweenComp, Rf_isNull(Rm));
         }
     }
     
     std::vector<int> startZ(m);
     double computedRows = 0;
-    
-    Rcpp::Rcout << static_cast<std::underlying_type<PartitionType>::type>(PartType) << std::endl;
-    Rcpp::Rcout << static_cast<std::underlying_type<ConstraintType>::type>(ConstType) << std::endl;
-    
-    switch (PartType) {
-        case PartitionType::Traditional : {
-            Rcpp::print(Rcpp::wrap("Traditional"));
-            break;
-        } case PartitionType::TradNoZero : {
-            Rcpp::print(Rcpp::wrap("TradNoZero"));
-            break;
-        } case PartitionType::TradCapped : {
-            Rcpp::print(Rcpp::wrap("TradCapped"));
-            break;
-        } case PartitionType::DstctStdAll : {
-            Rcpp::print(Rcpp::wrap("DstctStdAll"));
-            break;
-        } case PartitionType::DstctShort : {
-            Rcpp::print(Rcpp::wrap("DstctShort"));
-            break;
-        } case PartitionType::DstctSpecial : {
-            Rcpp::print(Rcpp::wrap("DstctSpecial"));
-            break;
-        } case PartitionType::DstctOneZero : {
-            Rcpp::print(Rcpp::wrap("DstctOneZero"));
-            break;
-        } case PartitionType::DstctNoZero : {
-            Rcpp::print(Rcpp::wrap("DstctNoZero"));
-            break;
-        } case PartitionType::DistCapped : {
-            Rcpp::print(Rcpp::wrap("DistCapped"));
-            break;
-        }
-    }
 
-    if (ConstType > ConstraintType::General) {
+    if (PartType > PartitionType::PartGeneral) {
         // vNum and myReps were sorted in GetPartitionCase
         bool IncludeZero = (vNum.front() == 0);
         int targetInt = static_cast<int>(targetVals[0]);
-        const std::vector<std::int64_t> v64(vNum.cbegin(), vNum.cend());
 
-        SetStartPartitionZ(PartType, distinctTest, v64, startZ, myReps,
-                           targetInt, n, m, IncludeZero, IsRep, IsMult);
-        return Rcpp::wrap(startZ);
-        if (startZ.empty()) {
-            if (myType == VecType::Integer) {
-                Rcpp::IntegerMatrix trivialIntRet(0, m);
-                return trivialIntRet;
-            } else {
-                Rcpp::NumericMatrix trivialNumRet(0, m);
-                return trivialNumRet;
-            }
-        }
+        SetStartPartitionZ(PartType, distinctTest, startZ,
+                           myReps, targetInt, n, m, IncludeZero);
         
         computedRows = GetComputedPartsComps(startZ, PartType, targetInt, m,
                                              IsComb, IncludeZero, Rf_isNull(Rm));
@@ -225,8 +176,6 @@ SEXP CombinatoricsCnstrt(SEXP Rv, SEXP Rm, SEXP RisRep, SEXP RFreqs, SEXP Rlow,
         computedRows = GetComputedRows(IsMult, IsComb, IsRep, n,
                                        m, Rm, lenFreqs, freqs, myReps);
     }
-    
-    return Rcpp::wrap(ConstType > ConstraintType::General);
     
     const bool IsGmp = (computedRows > Significand53);
     mpz_t computedRowsMpz;
@@ -249,13 +198,13 @@ SEXP CombinatoricsCnstrt(SEXP Rv, SEXP Rm, SEXP RisRep, SEXP RFreqs, SEXP Rlow,
     Rcpp::XPtr<nthResultPtr> xpComb = putNthResPtrInXPtr(IsComb, IsMult, IsRep, IsGmp);
     const nthResultPtr nthResFun = *xpComb;
 
-    if (ConstType == ConstraintType::General) {
+    if (PartType <= PartitionType::PartGeneral) {
         SetStartZ(n, m, lower, 0, lowerMpz[0], IsRep, IsComb,
                   IsMult, IsGmp, myReps, freqs, startZ, nthResFun);
     }
     
     double userNumRows = 0;
-    const bool IsGenCnstrd = (IsConstrained && ConstType == ConstraintType::General);
+    const bool IsGenCnstrd = (IsConstrained && PartType <= PartitionType::PartGeneral);
     SetNumResults(IsGmp, bLower, bUpper, IsGenCnstrd, upperMpz.get(), lowerMpz.get(),
                   lower, upper, computedRows, computedRowsMpz, nRows, userNumRows);
 
@@ -264,12 +213,12 @@ SEXP CombinatoricsCnstrt(SEXP Rv, SEXP Rm, SEXP RisRep, SEXP RFreqs, SEXP Rlow,
             return ConstraintReturn<Rcpp::IntegerMatrix>(n, m, mainFun, compFunVec, targetIntVals, vInt, bLower,
                                                          lower, bUpper, computedRows, IsRep, nRows, KeepRes, startZ,
                                                          IsMult, IsComb, Rf_isNull(Rm), userNumRows, myReps, freqs,
-                                                         PartType, ConstType, distinctTest.getAll);
+                                                         PartType, distinctTest.getAll);
         } else {
             return ConstraintReturn<Rcpp::NumericMatrix>(n, m, mainFun, compFunVec, targetVals, vNum, bLower,
                                                          lower, bUpper, computedRows, IsRep, nRows, KeepRes, startZ,
                                                          IsMult, IsComb, Rf_isNull(Rm), userNumRows, myReps, freqs,
-                                                         PartType, ConstType, distinctTest.getAll);
+                                                         PartType, distinctTest.getAll);
         }
     } else {
         int nThreads = 1;
@@ -287,13 +236,13 @@ SEXP CombinatoricsCnstrt(SEXP Rv, SEXP Rm, SEXP RisRep, SEXP RFreqs, SEXP Rlow,
             const funcPtr<int> funInt = *xpFunInt;
 
             Rcpp::IntegerMatrix matInt = Rcpp::no_init_matrix(nRows, nCols);
-            MainResRet(matInt, vInt, funInt, n, m, IsRep, IsComb, IsMult, IsGmp, freqs,
-                       startZ, myReps, lower, lowerMpz[0], nRows, nThreads, Parallel);
+            MasterResRet(matInt, vInt, funInt, n, m, IsRep, IsComb, IsMult, IsGmp, freqs,
+                         startZ, myReps, lower, lowerMpz[0], nRows, nThreads, Parallel);
             return matInt;
         } else {
             Rcpp::NumericMatrix matNum = Rcpp::no_init_matrix(nRows, nCols);
-            MainResRet(matNum, vNum, funDbl, n, m, IsRep, IsComb, IsMult, IsGmp, freqs,
-                       startZ, myReps, lower, lowerMpz[0], nRows, nThreads, Parallel);
+            MasterResRet(matNum, vNum, funDbl, n, m, IsRep, IsComb, IsMult, IsGmp, freqs,
+                         startZ, myReps, lower, lowerMpz[0], nRows, nThreads, Parallel);
             return matNum;
         }
     }

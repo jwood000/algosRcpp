@@ -52,8 +52,8 @@ SEXP EratosthenesRcpp(SEXP Rb1, SEXP Rb2, SEXP RNumThreads, int maxCores, int ma
         std::vector<std::vector<double>> primeList(numSects, std::vector<double>());
         std::vector<double> tempPrimes;
         
-        PrimeSieve::PrimeSieveMain(myMin, myMax, tempPrimes, primeList,
-                                   Parallel, nThreads, maxThreads, maxCores);
+        PrimeSieve::PrimeSieveMaster(myMin, myMax, tempPrimes, primeList,
+                                     Parallel, nThreads, maxThreads, maxCores);
         
         if (Parallel) {
             for (std::size_t i = 0; i < numSects; ++i) {
@@ -76,8 +76,8 @@ SEXP EratosthenesRcpp(SEXP Rb1, SEXP Rb2, SEXP RNumThreads, int maxCores, int ma
         std::vector<std::vector<int>> primeList(numSects, std::vector<int>());
         std::vector<int> tempPrimes;
         
-        PrimeSieve::PrimeSieveMain(myMin, myMax, tempPrimes, primeList,
-                                   Parallel, nThreads, maxThreads, maxCores);
+        PrimeSieve::PrimeSieveMaster(myMin, myMax, tempPrimes, primeList,
+                                     Parallel, nThreads, maxThreads, maxCores);
         
         if (Parallel) {
             for (std::size_t i = 0; i < numSects; ++i) {

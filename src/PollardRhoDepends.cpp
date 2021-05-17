@@ -85,14 +85,18 @@ template <typename typeReturn>
 void FactorList(std::size_t m, std::size_t n, std::vector<double> &myNums,
                 std::vector<std::vector<typeReturn>> &MyDivList) {
     
+    bool isNegative = false;
+    
     for (std::size_t j = m; j < n; ++j) {
         std::vector<typeReturn> myDivisors;
         std::int64_t mPass = static_cast<std::int64_t>(myNums[j]);
         
-        const bool isNegative = (mPass < 0) ? true : false;
-        
-        if (isNegative)
+        if (mPass < 0) {
             mPass = std::abs(mPass);
+            isNegative = true;
+        } else {
+            isNegative = false;
+        }
         
         if (mPass > 1) {
             std::vector<typeReturn> factors;

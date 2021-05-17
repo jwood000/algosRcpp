@@ -112,9 +112,9 @@ void DivisorsSieve(typeInt m, typeReturn retN, typeInt offsetStrt,
 }
 
 template <typename typeInt, typename typeReturn, typename typeDivCount>
-void DivisorMain(typeInt myMin, typeReturn myMax, bool bDivSieve,
-                 typeDivCount &DivCountV, std::vector<std::vector<typeReturn>> &MyDivList,
-                 std::size_t myRange, int nThreads = 1, int maxThreads = 1) {
+void DivisorMaster(typeInt myMin, typeReturn myMax, bool bDivSieve,
+                   typeDivCount &DivCountV, std::vector<std::vector<typeReturn>> &MyDivList,
+                   std::size_t myRange, int nThreads = 1, int maxThreads = 1) {
     
     bool Parallel = false;
     typeInt offsetStrt = 0;
@@ -185,8 +185,8 @@ SEXP TheGlue(typeInt myMin, typeReturn myMax, bool bDivSieve,
         std::vector<std::vector<typeReturn>> 
             MyDivList(myRange, std::vector<typeReturn>());
         Rcpp::IntegerVector tempRcpp;
-        DivisorMain(myMin, myMax, bDivSieve, tempRcpp,
-                    MyDivList, myRange, nThreads, maxThreads);
+        DivisorMaster(myMin, myMax, bDivSieve, tempRcpp,
+                      MyDivList, myRange, nThreads, maxThreads);
         
         Rcpp::List myList = Rcpp::wrap(MyDivList);
         if (keepNames)
@@ -196,8 +196,8 @@ SEXP TheGlue(typeInt myMin, typeReturn myMax, bool bDivSieve,
     } else {
         std::vector<std::vector<typeReturn>> tempList;
         Rcpp::IntegerVector facCountV(myRange, 2);
-        DivisorMain(myMin, myMax, bDivSieve, facCountV,
-                    tempList, myRange, nThreads, maxThreads);
+        DivisorMaster(myMin, myMax, bDivSieve, facCountV,
+                      tempList, myRange, nThreads, maxThreads);
         
         if (keepNames)
             facCountV.attr("names") = myNames;

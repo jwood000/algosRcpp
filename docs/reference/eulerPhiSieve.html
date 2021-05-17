@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,7 +41,6 @@
 
 <meta property="og:title" content="Apply Euler's Phi Function to Every Element in a Range — eulerPhiSieve" />
 <meta property="og:description" content="Sieve that generates the number of coprime elements for every number between bound1 and bound2 (if supplied) or all numbers up to bound1. This is equivalent to applying Euler's phi function (often written as \(\phi(x)\)) to every number in a given range." />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -55,7 +58,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -69,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RcppAlgos</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.1</span>
       </span>
     </div>
 
@@ -120,7 +123,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/jwood000/RcppAlgos">
+  <a href="https://github.com/jwood000/RcppAlgos/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -147,7 +150,7 @@
     <p>Sieve that generates the number of coprime elements for every number between <code>bound1</code> and <code>bound2</code> (if supplied) or all numbers up to <code>bound1</code>. This is equivalent to applying Euler's phi function (often written as \(\phi(x)\)) to every number in a given range.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>eulerPhiSieve</span>(<span class='no'>bound1</span>, <span class='kw'>bound2</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>namedVector</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>nThreads</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>eulerPhiSieve</span><span class='op'>(</span><span class='va'>bound1</span>, bound2 <span class='op'>=</span> <span class='cn'>NULL</span>, namedVector <span class='op'>=</span> <span class='cn'>FALSE</span>, nThreads <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -181,6 +184,9 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Returns a named/unnamed integer vector if <code><a href='https://rdrr.io/r/base/Extremes.html'>max(bound1, bound2)</a></code> \(&lt; 2^{31}\), or a numeric vector otherwise.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Joseph Wood</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>The maximum allowed value is \(2^{53} - 1\).</p>
@@ -200,47 +206,43 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Generate some random data</span>
-<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span>(<span class='fl'>496</span>)
-<span class='no'>mySamp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>10</span>^<span class='fl'>6</span>, <span class='fl'>5</span>*<span class='fl'>10</span>^<span class='fl'>5</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>496</span><span class='op'>)</span>
+<span class='va'>mySamp</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>^</span><span class='fl'>6</span>, <span class='fl'>5</span><span class='op'>*</span><span class='fl'>10</span><span class='op'>^</span><span class='fl'>5</span><span class='op'>)</span>
 
 <span class='co'>## Generate number of coprime elements for many numbers</span>
-<span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span>(<span class='no'>myPhis</span> <span class='kw'>&lt;-</span> <span class='fu'>eulerPhiSieve</span>(<span class='fl'>10</span>^<span class='fl'>6</span>))</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.016   0.002   0.017 </div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span><span class='op'>(</span><span class='va'>myPhis</span> <span class='op'>&lt;-</span> <span class='fu'>eulerPhiSieve</span><span class='op'>(</span><span class='fl'>10</span><span class='op'>^</span><span class='fl'>6</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    user  system elapsed 
+#&gt;   0.018   0.001   0.019 </div><div class='input'>
 <span class='co'>## Now use result in algorithm</span>
-<span class='kw'>for</span> (<span class='no'>s</span> <span class='kw'>in</span> <span class='no'>mySamp</span>) {
-    <span class='no'>sPhi</span> <span class='kw'>&lt;-</span> <span class='no'>myPhis</span>[<span class='no'>s</span>]
+<span class='kw'>for</span> <span class='op'>(</span><span class='va'>s</span> <span class='kw'>in</span> <span class='va'>mySamp</span><span class='op'>)</span> <span class='op'>{</span>
+    <span class='va'>sPhi</span> <span class='op'>&lt;-</span> <span class='va'>myPhis</span><span class='op'>[</span><span class='va'>s</span><span class='op'>]</span>
     <span class='co'>## Continue algorithm</span>
-}
+<span class='op'>}</span>
 
 <span class='co'>## See https://projecteuler.net</span>
-<span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/which.min.html'>which.max</a></span>((<span class='fl'>1</span>:<span class='fl'>10</span>^<span class='fl'>6</span>)/<span class='fu'>eulerPhiSieve</span>(<span class='fl'>10</span>^<span class='fl'>6</span>)))</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.023   0.003   0.026 </div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/which.min.html'>which.max</a></span><span class='op'>(</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>^</span><span class='fl'>6</span><span class='op'>)</span><span class='op'>/</span><span class='fu'>eulerPhiSieve</span><span class='op'>(</span><span class='fl'>10</span><span class='op'>^</span><span class='fl'>6</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    user  system elapsed 
+#&gt;   0.024   0.004   0.028 </div><div class='input'>
 <span class='co'>## Generating number of coprime elements</span>
 <span class='co'>## for every number in a range is no problem</span>
-<span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span>(<span class='no'>myPhiRange</span> <span class='kw'>&lt;-</span> <span class='fu'>eulerPhiSieve</span>(<span class='fl'>10</span>^<span class='fl'>13</span>, <span class='fl'>10</span>^<span class='fl'>13</span> + <span class='fl'>10</span>^<span class='fl'>6</span>))</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.124   0.004   0.128 </div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span><span class='op'>(</span><span class='va'>myPhiRange</span> <span class='op'>&lt;-</span> <span class='fu'>eulerPhiSieve</span><span class='op'>(</span><span class='fl'>10</span><span class='op'>^</span><span class='fl'>13</span>, <span class='fl'>10</span><span class='op'>^</span><span class='fl'>13</span> <span class='op'>+</span> <span class='fl'>10</span><span class='op'>^</span><span class='fl'>6</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    user  system elapsed 
+#&gt;   0.238   0.004   0.244 </div><div class='input'>
 <span class='co'>## Returning a named vector</span>
-<span class='fu'>eulerPhiSieve</span>(<span class='fl'>10</span>, <span class='fl'>20</span>, <span class='kw'>namedVector</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; 10 11 12 13 14 15 16 17 18 19 20 
-#&gt;  4 10  4 12  6  8  8 16  6 18  8 </div><div class='input'><span class='fu'>eulerPhiSieve</span>(<span class='fl'>10</span>, <span class='kw'>namedVector</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;  1  2  3  4  5  6  7  8  9 10 
+<span class='fu'>eulerPhiSieve</span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>20</span>, namedVector <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 10 11 12 13 14 15 16 17 18 19 20 
+#&gt;  4 10  4 12  6  8  8 16  6 18  8 </div><div class='input'><span class='fu'>eulerPhiSieve</span><span class='op'>(</span><span class='fl'>10</span>, namedVector <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  1  2  3  4  5  6  7  8  9 10 
 #&gt;  1  1  2  2  4  2  6  4  6  4 </div><div class='input'>
 <span class='co'>## Using nThreads</span>
-<span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span>(<span class='fu'>eulerPhiSieve</span>(<span class='fl'>1e5</span>, <span class='fl'>2e5</span>, <span class='kw'>nThreads</span> <span class='kw'>=</span> <span class='fl'>2</span>))</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.003   0.001   0.002 </div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span><span class='op'>(</span><span class='fu'>eulerPhiSieve</span><span class='op'>(</span><span class='fl'>1e5</span>, <span class='fl'>2e5</span>, nThreads <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    user  system elapsed 
+#&gt;   0.004   0.001   0.003 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#note">Note</a></li>
-      <li><a href="#references">References</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Joseph Wood</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -251,7 +253,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

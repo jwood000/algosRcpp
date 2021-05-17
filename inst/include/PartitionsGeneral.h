@@ -5,19 +5,14 @@
 #include <vector>
 #include <cstdint>
 
-template <typename typeVector>
-void PartitionsMultiSet(int m, const std::vector<typeVector> &v, std::vector<int> &z,
-                        int lastElem, int lastCol, int maxRows, bool isComb,
-                        const std::vector<int> &Reps, std::vector<typeVector> &partitionsVec);
+int PartitionsMultiSet(int m, const std::vector<std::int64_t> &v, std::int64_t target, 
+                       int lastElem, int lastCol, int maxRows, bool isComb,
+                       const std::vector<int> &Reps, std::vector<std::int64_t> &partitionsVec);
+    
+int PartitionsRep(int m, const std::vector<std::int64_t> &v, std::int64_t target, int lastElem,
+                  int lastCol, int maxRows, bool isComb, std::vector<std::int64_t> &partitionsVec);
 
-template <typename typeRcpp, typename typeVector>
-void PartitionsRep(int m, const std::vector<typeVector> &v, std::vector<int> &z,
-                   int lastElem, int lastCol, int maxRows, bool isComb,
-                   std::vector<typeVector> &partitionsVec, typeRcpp &matRcpp);
-
-template <typename typeRcpp, typename typeVector>
-void PartitionsDistinct(int m, const std::vector<typeVector> &v, std::vector<int> &z,
-                        int lastElem, int lastCol, int maxRows, bool isComb,
-                        std::vector<typeVector> &partitionsVec, typeRcpp &matRcpp);
+int PartitionsDistinct(int m, const std::vector<std::int64_t> &v, std::int64_t target, int lastElem,
+                       int lastCol, int maxRows, bool isComb, std::vector<std::int64_t> &partitionsVec);
 
 #endif

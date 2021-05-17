@@ -34,7 +34,7 @@ permuteSample(v, m = NULL, repetition = FALSE, freqs = NULL,
   \item{namedSample}{Logical flag. If \code{TRUE}, \code{rownames} corresponding to the lexicographical combination/permutation, will be added to the returned matrix. The default is \code{FALSE}.}
  }
 \details{
-These algorithms rely on efficiently generating the \eqn{n^{th}}{nth} lexicographical combination/permutation. This is the process of \href{https://rosettacode.org/wiki/Permutations/Rank_of_a_permutation}{unranking}.
+These algorithms rely on efficiently generating the \eqn{n^{th}}{nth} lexicographical combination/permutation (sometimes called the \href{https://rosettacode.org/wiki/Permutations/Rank_of_a_permutation}{rank}).
 }
 \value{
 In general, a matrix is returned with each row containing a vector of length \eqn{m}. If \code{FUN} is utilized, a list is returned.

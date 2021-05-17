@@ -5,10 +5,10 @@
 #include <cmath>
 
 template <typename typeReturn>
-void PollardRhoMain(std::vector<double> &myNums, typeReturn myMax, bool bPrimeFacs,
-                    bool bAllFacs, std::vector<std::vector<typeReturn>> &MyList,
-                    Rcpp::LogicalVector &primeTest, std::size_t myRange, 
-                    int nThreads = 1, int maxThreads = 1) {
+void PollardRhoMaster(std::vector<double> &myNums, typeReturn myMax, bool bPrimeFacs,
+                      bool bAllFacs, std::vector<std::vector<typeReturn>> &MyList,
+                      Rcpp::LogicalVector &primeTest, std::size_t myRange, 
+                      int nThreads = 1, int maxThreads = 1) {
     
     bool Parallel = false;
     
@@ -76,8 +76,8 @@ SEXP TheGlue(std::vector<double> &myNums, typeReturn myMax, bool bPrimeFacs,
             std::vector<std::vector<typeReturn>> 
                 MyPrimeList(myRange, std::vector<typeReturn>());
             
-            PollardRhoMain(myNums, myMax, bPrimeFacs, bAllFacs,
-                           MyPrimeList, tempVec, myRange, nThreads, maxThreads);
+            PollardRhoMaster(myNums, myMax, bPrimeFacs, bAllFacs,
+                             MyPrimeList, tempVec, myRange, nThreads, maxThreads);
             
             Rcpp::List myList = Rcpp::wrap(MyPrimeList);
             if (keepNames)
@@ -128,8 +128,8 @@ SEXP TheGlue(std::vector<double> &myNums, typeReturn myMax, bool bPrimeFacs,
         std::vector<std::vector<typeReturn>> 
             MyPrimeList(myRange, std::vector<typeReturn>());
         
-        PollardRhoMain(myNums, myMax, bPrimeFacs, bAllFacs,
-                       MyPrimeList, tempVec, myRange, nThreads, maxThreads);
+        PollardRhoMaster(myNums, myMax, bPrimeFacs, bAllFacs,
+                         MyPrimeList, tempVec, myRange, nThreads, maxThreads);
         
         Rcpp::List myList = Rcpp::wrap(MyPrimeList);
         if (keepNames)
@@ -140,8 +140,8 @@ SEXP TheGlue(std::vector<double> &myNums, typeReturn myMax, bool bPrimeFacs,
         Rcpp::LogicalVector isPrimeVec(myRange, true);
         std::vector<std::vector<typeReturn>> tempList;
         
-        PollardRhoMain(myNums, myMax, bPrimeFacs, bAllFacs,
-                       tempList, isPrimeVec, myRange, nThreads, maxThreads);
+        PollardRhoMaster(myNums, myMax, bPrimeFacs, bAllFacs,
+                         tempList, isPrimeVec, myRange, nThreads, maxThreads);
         if (keepNames)
             isPrimeVec.attr("names") = myNums;
         

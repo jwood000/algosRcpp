@@ -41,7 +41,7 @@ namespace PrimeSieve {
                                                    10000000000000000.0}};
     
     // The following function is based off of the prime number theorem
-    std::size_t EstimatePiPrime(double minNum, double maxNum) {
+    inline std::size_t EstimatePiPrime(double minNum, double maxNum) {
         const auto it = std::upper_bound(CUTPOINTS.cbegin(), CUTPOINTS.cend(), maxNum);
         const std::size_t myIndex = it - CUTPOINTS.cbegin();
         double dblRes = std::ceil((maxNum / std::log(maxNum)) * (1 + PERCINC[myIndex]));
@@ -417,6 +417,7 @@ namespace PrimeSieve {
         
         std::int_fast64_t remPrime, timesTwo;
         std::int_fast64_t tempInd, maxIndex = myRange + 1;
+        bool bKeepGoing;
         
         // Keeps track of which primes will be used in each interval
         std::deque<std::vector<std::size_t>> myBuckets(numCacheSegs,
@@ -435,7 +436,7 @@ namespace PrimeSieve {
             remTest = (myIndex % sz30030) - 1;
             timesTwo = (2 * svPriTwo[i]);
             remPrime = (timesTwo % sz30030);
-            bool bKeepGoing = (myIndex <= maxIndex);
+            bKeepGoing = (myIndex <= maxIndex);
             
             // Populate rest of the buckets
             while (bKeepGoing) {
@@ -650,9 +651,9 @@ namespace PrimeSieve {
     }
     
     template <typename typePrime>
-    void PrimeSieveMain(std::int_fast64_t minNum, std::int_fast64_t maxNum, std::vector<typePrime> &primes, 
-                        std::vector<std::vector<typePrime>> &primeList, bool &Parallel,
-                        int nThreads = 1, int maxThreads = 1, int maxCores = 1) {
+    void PrimeSieveMaster(std::int_fast64_t minNum, std::int_fast64_t maxNum, std::vector<typePrime> &primes, 
+                          std::vector<std::vector<typePrime>> &primeList, bool &Parallel,
+                          int nThreads = 1, int maxThreads = 1, int maxCores = 1) {
         
         const std::int_fast64_t myRange = maxNum - minNum;
         std::int_fast64_t smallCut = Almost2310L1Cache - 100;
@@ -700,7 +701,7 @@ namespace PrimeSieve {
             const std::size_t svMainSize = svPriMain.size();
             
             // Get the primes that are guaranteed to mark an index in every segment interval
-            for (; ind < svMainSize && (2 * svPriMain[ind]) < limitOne; ++ind)
+            for (; (2 * svPriMain[ind]) < limitOne && ind < svMainSize; ++ind)
                 svPriOne.push_back(svPriMain[ind]);
             
             // Get the rest
@@ -761,14 +762,14 @@ namespace PrimeSieve {
     }
 }
 
-template void PrimeSieve::PrimeSieveMain<double>(std::int_fast64_t, std::int_fast64_t, std::vector<double>&, 
-                                                 std::vector<std::vector<double>>&, bool&, int, int, int);
+template void PrimeSieve::PrimeSieveMaster<double>(std::int_fast64_t, std::int_fast64_t, std::vector<double>&, 
+                                                   std::vector<std::vector<double>>&, bool&, int, int, int);
 
-template void PrimeSieve::PrimeSieveMain<std::int64_t>(std::int_fast64_t, std::int_fast64_t, std::vector<std::int64_t>&, 
-                                                       std::vector<std::vector<std::int64_t>>&, bool&, int, int, int);
+template void PrimeSieve::PrimeSieveMaster<std::int64_t>(std::int_fast64_t, std::int_fast64_t, std::vector<std::int64_t>&, 
+                                                    std::vector<std::vector<std::int64_t>>&, bool&, int, int, int);
 
-template void PrimeSieve::PrimeSieveMain<int>(std::int_fast64_t, std::int_fast64_t, std::vector<int>&, 
-                                              std::vector<std::vector<int>>&, bool&, int, int, int);
+template void PrimeSieve::PrimeSieveMaster<int>(std::int_fast64_t, std::int_fast64_t, std::vector<int>&, 
+                                                std::vector<std::vector<int>>&, bool&, int, int, int);
 
 template void PrimeSieve::sqrtBigPrimes<double>(int, bool, bool, bool, std::vector<double>&);
 template void PrimeSieve::sqrtBigPrimes<std::int64_t>(int, bool, bool, bool, std::vector<std::int64_t>&);

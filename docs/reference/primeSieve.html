@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -39,7 +43,6 @@
 <meta property="og:description" content="Implementation of the segmented sieve of Eratosthenes with wheel factorization. Generates all prime numbers between bound1 and bound2 (if supplied) or all primes up to bound1. See this stackoverflow post for an analysis on prime number generation efficiency in R: Generate a list of primes up to a certain number
 
 The fundamental concepts of this algorithm are based off of the implementation by Kim Walisch found here: kimwalisch/primesieve." />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -57,7 +60,7 @@ The fundamental concepts of this algorithm are based off of the implementation b
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -71,7 +74,7 @@ The fundamental concepts of this algorithm are based off of the implementation b
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RcppAlgos</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.1</span>
       </span>
     </div>
 
@@ -122,7 +125,7 @@ The fundamental concepts of this algorithm are based off of the implementation b
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/jwood000/RcppAlgos">
+  <a href="https://github.com/jwood000/RcppAlgos/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -151,7 +154,7 @@ The fundamental concepts of this algorithm are based off of the implementation b
 <p>The fundamental concepts of this algorithm are based off of the implementation by Kim Walisch found here: <a href='https://github.com/kimwalisch/primesieve'>kimwalisch/primesieve</a>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>primeSieve</span>(<span class='no'>bound1</span>, <span class='kw'>bound2</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>nThreads</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>primeSieve</span><span class='op'>(</span><span class='va'>bound1</span>, bound2 <span class='op'>=</span> <span class='cn'>NULL</span>, nThreads <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -198,43 +201,43 @@ The fundamental concepts of this algorithm are based off of the implementation b
 <li><p><a href='https://en.wikipedia.org/wiki/Double-precision_floating-point_format'>53-bit significand precision</a></p></li>
 </ul>
 
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Joseph Wood</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/numbers/man/primes.html'>Primes</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## Primes up to a thousand</span>
-<span class='fu'>primeSieve</span>(<span class='fl'>100</span>)</div><div class='output co'>#&gt;  [1]  2  3  5  7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97</div><div class='input'>
+<span class='fu'>primeSieve</span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1]  2  3  5  7 11 13 17 19 23 29 31 37 41 43 47 53 59 61 67 71 73 79 83 89 97</div><div class='input'>
 <span class='co'>## Primes between 42 and 17</span>
-<span class='fu'>primeSieve</span>(<span class='fl'>42</span>, <span class='fl'>17</span>)</div><div class='output co'>#&gt; [1] 17 19 23 29 31 37 41</div><div class='input'>
+<span class='fu'>primeSieve</span><span class='op'>(</span><span class='fl'>42</span>, <span class='fl'>17</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 17 19 23 29 31 37 41</div><div class='input'>
 <span class='co'>## Equivalent to </span>
-<span class='fu'>primeSieve</span>(<span class='fl'>17</span>, <span class='fl'>42</span>)</div><div class='output co'>#&gt; [1] 17 19 23 29 31 37 41</div><div class='input'>
+<span class='fu'>primeSieve</span><span class='op'>(</span><span class='fl'>17</span>, <span class='fl'>42</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 17 19 23 29 31 37 41</div><div class='input'>
 <span class='co'>## Primes up to one hundred million in no time</span>
-<span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span>(<span class='fu'>primeSieve</span>(<span class='fl'>10</span>^<span class='fl'>8</span>))</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.124   0.011   0.135 </div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span><span class='op'>(</span><span class='fu'>primeSieve</span><span class='op'>(</span><span class='fl'>10</span><span class='op'>^</span><span class='fl'>8</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    user  system elapsed 
+#&gt;   0.165   0.014   0.178 </div><div class='input'>
 <span class='co'>## options(scipen = 50)</span>
 <span class='co'>## Generate large primes over interval</span>
-<span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span>(<span class='no'>myPs</span> <span class='kw'>&lt;-</span> <span class='fu'>primeSieve</span>(<span class='fl'>10</span>^<span class='fl'>13</span>+<span class='fl'>10</span>^<span class='fl'>6</span>, <span class='fl'>10</span>^<span class='fl'>13</span>))</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.017   0.001   0.019 </div><div class='input'><span class='co'>## Object created is small</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/object.size.html'>object.size</a></span>(<span class='no'>myPs</span>)</div><div class='output co'>#&gt; 267696 bytes</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span><span class='op'>(</span><span class='va'>myPs</span> <span class='op'>&lt;-</span> <span class='fu'>primeSieve</span><span class='op'>(</span><span class='fl'>10</span><span class='op'>^</span><span class='fl'>13</span><span class='op'>+</span><span class='fl'>10</span><span class='op'>^</span><span class='fl'>6</span>, <span class='fl'>10</span><span class='op'>^</span><span class='fl'>13</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    user  system elapsed 
+#&gt;   0.017   0.001   0.018 </div><div class='input'><span class='co'>## Object created is small</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/object.size.html'>object.size</a></span><span class='op'>(</span><span class='va'>myPs</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; 267696 bytes</div><div class='input'>
 <span class='co'>## Using nThreads</span>
-<span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span>(<span class='fu'>primeSieve</span>(<span class='fl'>1e7</span>, <span class='kw'>nThreads</span> <span class='kw'>=</span> <span class='fl'>2</span>))</div><div class='output co'>#&gt;    user  system elapsed 
-#&gt;   0.016   0.001   0.009 </div></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/system.time.html'>system.time</a></span><span class='op'>(</span><span class='fu'>primeSieve</span><span class='op'>(</span><span class='fl'>1e7</span>, nThreads <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    user  system elapsed 
+#&gt;   0.020   0.001   0.012 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#note">Note</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#references">References</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Joseph Wood</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -245,7 +248,7 @@ The fundamental concepts of this algorithm are based off of the implementation b
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

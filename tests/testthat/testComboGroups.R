@@ -37,14 +37,6 @@ test_that("comboGroups produces correct results", {
     expect_equal(dim(comboGroups(as.raw(1:4), 2, "3Darray")),
                  dim(comboGroups(as.complex(c(1, -1, 1i, -1i)), 2, "3Darray")))
     
-    ## test class preservations
-    expect_equal(class(comboGroups(as.raw(1:4), 2)[1,]), "raw")
-    expect_equal(class(comboGroups(as.character(1:4), 2)[1,]), "character")
-    expect_equal(class(comboGroups(1:4, 2)[1,]), "integer")
-    expect_equal(class(comboGroups(1:4 + 0.1, 2)[1,]), "numeric")
-    expect_equal(class(comboGroups(c(T, F), 2)[1, ]), "logical")
-    expect_equal(class(comboGroups(as.complex(c(1, -1, 1i, -1i)), 2)[1,]), "complex")
-    
     expect_equal(rownames(comboGroupsSample(30, 5, n = 2,
                                             seed = 1, namedSample = TRUE)),
                  c("7162662695786451", "3525427663529072"))

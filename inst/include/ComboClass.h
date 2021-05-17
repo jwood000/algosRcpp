@@ -43,13 +43,8 @@ private:
     // depends on freqs.size, IsMult, and n
     const int n1;
     
-    SEXP VecReturn(const SEXP &v);
-    SEXP MatReturn(const SEXP &v, int nRows, bool IsReverse);
-    SEXP SampReturn(const SEXP &v, const std::vector<double> &mySample,
-                    mpz_t *const myBigSamp, std::size_t sampSize);
-    
     template <int RTYPE>
-    Rcpp::Vector<RTYPE> VecPopulate(const Rcpp::Vector<RTYPE> &v);
+    Rcpp::Vector<RTYPE> VecRes(const Rcpp::Vector<RTYPE> &v);
     
     template <int RTYPE>
     Rcpp::Matrix<RTYPE> MatCombo(const Rcpp::Vector<RTYPE> &v, int nRows);

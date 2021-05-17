@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -42,7 +46,6 @@ Produce results in parallel using the Parallel or nThreads arguments.
 GMP support allows for exploration of combinations/permutations of vectors with many elements.
 
 " />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -60,7 +63,7 @@ GMP support allows for exploration of combinations/permutations of vectors with 
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -74,7 +77,7 @@ GMP support allows for exploration of combinations/permutations of vectors with 
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RcppAlgos</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.4.1</span>
       </span>
     </div>
 
@@ -125,7 +128,7 @@ GMP support allows for exploration of combinations/permutations of vectors with 
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/jwood000/RcppAlgos">
+  <a href="https://github.com/jwood000/RcppAlgos/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -157,13 +160,13 @@ GMP support allows for exploration of combinations/permutations of vectors with 
 
     </div>
 
-    <pre class="usage"><span class='fu'>comboSample</span>(<span class='no'>v</span>, <span class='kw'>m</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>repetition</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>freqs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-             <span class='kw'>n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sampleVec</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>FUN</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-              <span class='kw'>Parallel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>nThreads</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>namedSample</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>comboSample</span><span class='op'>(</span><span class='va'>v</span>, m <span class='op'>=</span> <span class='cn'>NULL</span>, repetition <span class='op'>=</span> <span class='cn'>FALSE</span>, freqs <span class='op'>=</span> <span class='cn'>NULL</span>, 
+             n <span class='op'>=</span> <span class='cn'>NULL</span>, sampleVec <span class='op'>=</span> <span class='cn'>NULL</span>, seed <span class='op'>=</span> <span class='cn'>NULL</span>, FUN <span class='op'>=</span> <span class='cn'>NULL</span>,
+              Parallel <span class='op'>=</span> <span class='cn'>FALSE</span>, nThreads <span class='op'>=</span> <span class='cn'>NULL</span>, namedSample <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>permuteSample</span>(<span class='no'>v</span>, <span class='kw'>m</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>repetition</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>freqs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-               <span class='kw'>n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sampleVec</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>FUN</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-                <span class='kw'>Parallel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>nThreads</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>namedSample</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>permuteSample</span><span class='op'>(</span><span class='va'>v</span>, m <span class='op'>=</span> <span class='cn'>NULL</span>, repetition <span class='op'>=</span> <span class='cn'>FALSE</span>, freqs <span class='op'>=</span> <span class='cn'>NULL</span>,
+               n <span class='op'>=</span> <span class='cn'>NULL</span>, sampleVec <span class='op'>=</span> <span class='cn'>NULL</span>, seed <span class='op'>=</span> <span class='cn'>NULL</span>, FUN <span class='op'>=</span> <span class='cn'>NULL</span>,
+                Parallel <span class='op'>=</span> <span class='cn'>FALSE</span>, nThreads <span class='op'>=</span> <span class='cn'>NULL</span>, namedSample <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -223,6 +226,9 @@ GMP support allows for exploration of combinations/permutations of vectors with 
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p><a href='https://en.wikipedia.org/wiki/Lexicographical_order'>Lexicographical order</a></p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Joseph Wood</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p></p><ul>
@@ -238,47 +244,55 @@ GMP support allows for exploration of combinations/permutations of vectors with 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## generate 10 random combinations</span>
-<span class='fu'>comboSample</span>(<span class='fl'>30</span>, <span class='fl'>8</span>, <span class='fl'>TRUE</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>10</span>)</div><div class='output co'>#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]
+<span class='fu'>comboSample</span><span class='op'>(</span><span class='fl'>30</span>, <span class='fl'>8</span>, <span class='cn'>TRUE</span>, n <span class='op'>=</span> <span class='fl'>5</span>, seed <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]
 #&gt; [1,]    7   11   11   17   20   22   23   27
 #&gt; [2,]    4    5    6   15   20   22   22   28
 #&gt; [3,]    6   11   11   17   17   21   24   24
 #&gt; [4,]   15   17   18   25   27   27   29   30
 #&gt; [5,]    5   12   14   18   21   22   25   27</div><div class='input'>
 <span class='co'>## using sampleVec to generate specific permutations</span>
-<span class='fu'>permuteSample</span>(<span class='fl'>15</span>, <span class='fl'>10</span>, <span class='kw'>freqs</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>1</span>),
-              <span class='kw'>sampleVec</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>10</span>^<span class='fl'>2</span>, <span class='fl'>10</span>^<span class='fl'>5</span>, <span class='fl'>10</span>^<span class='fl'>8</span>, <span class='fl'>10</span>^<span class='fl'>11</span>))</div><div class='output co'>#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+<span class='fu'>permuteSample</span><span class='op'>(</span><span class='fl'>15</span>, <span class='fl'>10</span>, freqs <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span>, 
+              sampleVec <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>10</span><span class='op'>^</span><span class='fl'>2</span>, <span class='fl'>10</span><span class='op'>^</span><span class='fl'>5</span>, <span class='fl'>10</span><span class='op'>^</span><span class='fl'>8</span>, <span class='fl'>10</span><span class='op'>^</span><span class='fl'>11</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
 #&gt; [1,]    1    2    2    3    3    4    5    5    6     6
 #&gt; [2,]    1    2    2    3    3    4    5    6    5    10
 #&gt; [3,]    1    2    2    3    3   11    8    4   15     6
 #&gt; [4,]    1    2    5    3   10    7    6   11    9    13
-#&gt; [5,]   13   15    8   11    5    5    6    1   11    12</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span>(<span class='fu'>comboSample</span>(<span class='fl'>10</span>, <span class='fl'>5</span>,
-            <span class='kw'>sampleVec</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fu'><a href='combinatoricsCount.html'>comboCount</a></span>(<span class='fl'>10</span>, <span class='fl'>5</span>)),
-         <span class='fu'><a href='combinatoricsGeneral.html'>comboGeneral</a></span>(<span class='fl'>10</span>, <span class='fl'>5</span>))</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
+#&gt; [5,]   13   15    8   11    5    5    6    1   11    12</div><div class='input'>              
+<span class='fu'><a href='https://rdrr.io/r/base/all.equal.html'>all.equal</a></span><span class='op'>(</span><span class='fu'>comboSample</span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>5</span>, 
+            sampleVec <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='comboCount.html'>comboCount</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>,
+         <span class='fu'><a href='comboGeneral.html'>comboGeneral</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>         
 <span class='co'>## Examples with enormous number of total permutations</span>
-<span class='no'>num</span> <span class='kw'>=</span> <span class='fu'><a href='combinatoricsCount.html'>permuteCount</a></span>(<span class='fl'>10000</span>, <span class='fl'>20</span>)
-<span class='kw pkg'>gmp</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/gmp/man/add.biginteger.html'>log2.bigz</a></span>(<span class='no'>num</span>)</div><div class='output co'>#&gt; [1] 265.7268</div><div class='input'><span class='co'>## [1] 265.7268</span>
+<span class='va'>num</span> <span class='op'>=</span> <span class='fu'><a href='comboCount.html'>permuteCount</a></span><span class='op'>(</span><span class='fl'>10000</span>, <span class='fl'>20</span><span class='op'>)</span>
+<span class='fu'>gmp</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/gmp/man/add.biginteger.html'>log2.bigz</a></span><span class='op'>(</span><span class='va'>num</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 265.7268</div><div class='input'><span class='co'>## [1] 265.7268</span>
 
-<span class='no'>first</span> <span class='kw'>=</span> <span class='kw pkg'>gmp</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/gmp/man/biginteger.rand.html'>urand.bigz</a></span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>265</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>123</span>)</div><div class='output co'>#&gt; Seed default initialisation
-#&gt; Seed initialisation</div><div class='input'><span class='no'>mySamp</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span>(<span class='no'>c</span>, <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='fl'>0</span>:<span class='fl'>10</span>, <span class='kw'>function</span>(<span class='no'>x</span>) <span class='kw pkg'>gmp</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/gmp/man/add.biginteger.html'>add.bigz</a></span>(<span class='no'>first</span>, <span class='no'>x</span>)))
+<span class='va'>first</span> <span class='op'>=</span> <span class='fu'>gmp</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/gmp/man/biginteger.rand.html'>urand.bigz</a></span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>1</span>, size <span class='op'>=</span> <span class='fl'>265</span>, seed <span class='op'>=</span> <span class='fl'>123</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; Seed default initialisation
+#&gt; Seed initialisation</div><div class='input'><span class='va'>mySamp</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/do.call.html'>do.call</a></span><span class='op'>(</span><span class='va'>c</span>, <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='fl'>10</span>, <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span> <span class='fu'>gmp</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/gmp/man/add.biginteger.html'>add.bigz</a></span><span class='op'>(</span><span class='va'>first</span>, <span class='va'>x</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span>(<span class='no'>mySamp</span>)</div><div class='output co'>#&gt; [1] "bigz"</div><div class='input'><span class='co'>## [1] "bigz"</span>
+<span class='fu'><a href='https://rdrr.io/r/base/class.html'>class</a></span><span class='op'>(</span><span class='va'>mySamp</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "bigz"</div><div class='input'><span class='co'>## [1] "bigz"</span>
 
 <span class='co'>## using permuteSample</span>
-<span class='no'>pSamp</span> <span class='kw'>=</span> <span class='fu'>permuteSample</span>(<span class='fl'>10000</span>, <span class='fl'>20</span>, <span class='kw'>sampleVec</span> <span class='kw'>=</span> <span class='no'>mySamp</span>)
+<span class='va'>pSamp</span> <span class='op'>=</span> <span class='fu'>permuteSample</span><span class='op'>(</span><span class='fl'>10000</span>, <span class='fl'>20</span>, sampleVec <span class='op'>=</span> <span class='va'>mySamp</span><span class='op'>)</span>
 
 <span class='co'>## using permuteGeneral</span>
-<span class='no'>pGeneral</span> <span class='kw'>=</span> <span class='fu'><a href='combinatoricsGeneral.html'>permuteGeneral</a></span>(<span class='fl'>10000</span>, <span class='fl'>20</span>,
-                          <span class='kw'>lower</span> <span class='kw'>=</span> <span class='no'>first</span>,
-                          <span class='kw'>upper</span> <span class='kw'>=</span> <span class='kw pkg'>gmp</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/gmp/man/add.biginteger.html'>add.bigz</a></span>(<span class='no'>first</span>, <span class='fl'>10</span>))
+<span class='va'>pGeneral</span> <span class='op'>=</span> <span class='fu'><a href='comboGeneral.html'>permuteGeneral</a></span><span class='op'>(</span><span class='fl'>10000</span>, <span class='fl'>20</span>, 
+                          lower <span class='op'>=</span> <span class='va'>first</span>,
+                          upper <span class='op'>=</span> <span class='fu'>gmp</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/gmp/man/add.biginteger.html'>add.bigz</a></span><span class='op'>(</span><span class='va'>first</span>, <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='no'>pSamp</span>, <span class='no'>pGeneral</span>)</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='co'>## [1] TRUE</span>
+<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='va'>pSamp</span>, <span class='va'>pGeneral</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='co'>## [1] TRUE</span>
 
 <span class='co'>## Using nThreads</span>
-<span class='no'>permPar</span> <span class='kw'>=</span> <span class='fu'>permuteSample</span>(<span class='fl'>10000</span>, <span class='fl'>50</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>nThreads</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+<span class='va'>permPar</span> <span class='op'>=</span> <span class='fu'>permuteSample</span><span class='op'>(</span><span class='fl'>10000</span>, <span class='fl'>50</span>, n <span class='op'>=</span> <span class='fl'>8</span>, seed <span class='op'>=</span> <span class='fl'>10</span>, nThreads <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 
 <span class='co'>## Using FUN</span>
-<span class='fu'>permuteSample</span>(<span class='fl'>10000</span>, <span class='fl'>50</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>FUN</span> <span class='kw'>=</span> <span class='no'>sd</span>)</div><div class='output co'>#&gt; [[1]]
+<span class='fu'>permuteSample</span><span class='op'>(</span><span class='fl'>10000</span>, <span class='fl'>50</span>, n <span class='op'>=</span> <span class='fl'>4</span>, seed <span class='op'>=</span> <span class='fl'>10</span>, FUN <span class='op'>=</span> <span class='va'>sd</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
 #&gt; [1] 2694.073
 #&gt; 
 #&gt; [[2]]
@@ -290,24 +304,16 @@ GMP support allows for exploration of combinations/permutations of vectors with 
 #&gt; [[4]]
 #&gt; [1] 2711.457
 #&gt; </div><div class='input'>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'>## Using Parallel</span>
-<span class='fu'>permuteSample</span>(<span class='fl'>10000</span>, <span class='fl'>50</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>Parallel</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-}</div></pre>
+<span class='fu'>permuteSample</span><span class='op'>(</span><span class='fl'>10000</span>, <span class='fl'>50</span>, n <span class='op'>=</span> <span class='fl'>80</span>, seed <span class='op'>=</span> <span class='fl'>10</span>, Parallel <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#references">References</a></li>
-      <li><a href="#note">Note</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Joseph Wood</p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -318,7 +324,7 @@ GMP support allows for exploration of combinations/permutations of vectors with 
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

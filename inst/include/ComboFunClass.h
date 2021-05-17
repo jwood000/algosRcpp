@@ -44,14 +44,9 @@ private:
     
     const SEXP stdFun;
     const SEXP rho;
-    
-    SEXP VecFUNReturn(const SEXP &v);
-    SEXP ListReturn(const SEXP &v, int nRows, bool IsReverse);
-    SEXP SampListReturn(const SEXP &v, const std::vector<double> &mySample,
-                        mpz_t *const myBigSamp, std::size_t sampSize);
 
     template <int RTYPE>
-    SEXP VecPopFUNRes(const Rcpp::Vector<RTYPE> &v);
+    SEXP VecFUNRes(const Rcpp::Vector<RTYPE> &v);
 
     template <int RTYPE>
     Rcpp::List ListComboFUN(const Rcpp::Vector<RTYPE> &v, int nRows);

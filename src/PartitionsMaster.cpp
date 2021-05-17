@@ -1,7 +1,5 @@
 #include "PartitionsGeneral.h"
 #include "NextPartitions.h"
-#include "PartitionEnums.h"
-#include "NextCompositions.h"
 #include "Cpp14MakeUnique.h"
 #include "StandardCount.h"
 
@@ -69,53 +67,57 @@ namespace Partitions {
     void PartitionsStandard(typeRcpp &partitionsMatrix, std::vector<int> &z, std::size_t m,
                             std::size_t numRows, bool IsComb, int boundary, int edge, 
                             int lastCol, bool includeZero, bool mIsNull) {
-        
-        const std::size_t lim = numRows - 1;
-        
         if (IsComb) {
             if (includeZero) {
-                for (std::size_t j = 0; j < lim; ++j, NextPartition(z, boundary, edge, lastCol))
+                for (std::size_t j = 0, lim = numRows - 1; j < lim; ++j, NextPartition(z, boundary, edge, lastCol))
                     for (int k = lastCol; k >= 0 && z[k]; --k)
                         partitionsMatrix(j, k) = z[k];
             } else {
-                for (std::size_t j = 0; j < lim; ++j, NextPartition(z, boundary, edge, lastCol))
+                for (std::size_t j = 0, lim = numRows - 1; j < lim; ++j, NextPartition(z, boundary, edge, lastCol))
                     for (std::size_t k = 0; k < m; ++k)
                         partitionsMatrix(j, k) = z[k];
             }
             
             for (std::size_t k = 0; k < m; ++k)
-                partitionsMatrix(lim, k) = z[k];
+                partitionsMatrix(numRows - 1, k) = z[k];
         } else {
-            if (includeZero) {
-                if (mIsNull) {
-                    for (std::size_t j = 0; j < lim; NextCompositionOne(z, lastCol))
+            if (mIsNull && includeZero) {
+                for (std::size_t count = 0;; NextPartition(z, boundary, edge, lastCol)) {
+                    
+                    const auto it = std::find_if(z.cbegin(), z.cend(), 
+                                                 [](int z_i) {return z_i;});
+                    const int firstNonZero = std::distance(z.cbegin(), it);
+                    
+                    do {
                         for (int k = lastCol; k >= 0 && z[k]; --k)
-                            partitionsMatrix(j, k) = z[k];
-                } else {
-                    for (std::size_t j = 0; j < lim; NextCompositionZero(z, lastCol))
-                        for (std::size_t k = 0; k < m; ++k)
-                            partitionsMatrix(j, k) = z[k];
+                            partitionsMatrix(count, k) = z[k];
+                        
+                        ++count;
+                    } while (std::next_permutation(z.begin() + firstNonZero, z.end()) && count < numRows);
+                    
+                    if (count >= numRows) {break;}
                 }
-                
-                for (std::size_t k = 0; k < m; ++k)
-                    partitionsMatrix(lim, k) = z[k];
             } else {
-                for (std::size_t j = 0; j < lim; NextCompositionOne(z, lastCol))
-                    for (std::size_t k = 0; k < m; ++k)
-                        partitionsMatrix(j, k) = z[k];
-                
-                for (std::size_t k = 0; k < m; ++k)
-                    partitionsMatrix(lim, k) = z[k];
+                for (std::size_t count = 0;; NextPartition(z, boundary, edge, lastCol)) {
+                    do {
+                        for (std::size_t k = 0; k < m; ++k)
+                            partitionsMatrix(count, k) = z[k];
+                        
+                        ++count;
+                    } while (std::next_permutation(z.begin(), z.end()) && count < numRows);
+                    
+                    if (count >= numRows) {break;}
+                }
             }
         }
     }
     
-    template <typename typeRcpp, typename typeVector>
-    typeRcpp PartitionsMain(const std::vector<typeVector> &v, std::vector<int> &z, const std::vector<int> &Reps,
-                            PartitionType PartType, typeVector target, int lenV, int m, bool IsRep, bool IsMult,
-                            double numParts, bool IsComb, bool xtraCol, bool bUserRows, bool mIsNull, bool getAll) {
+    template <typename typeRcpp>
+    typeRcpp PartitionsMaster(const std::vector<int64_t> &v, std::vector<int> &z, const std::vector<int> &Reps,
+                              PartitionType PartType, int64_t target, int lenV, int m, bool IsRep, bool IsMult,
+                              double numParts, bool IsComb, bool xtraCol, bool bUserRows, bool mIsNull, bool getAll) {
         
-        bool IncludeZero = (v.front() == 0);
+        const bool IncludeZero = (v.front() == 0);
         
         // When Rm is NULL, m = n, and we have zero, then we need
         // to reduce m by 1. In this case lenV = target + 1
@@ -124,11 +126,10 @@ namespace Partitions {
         
         const int nCols = (xtraCol) ? m + 1 : m;
         const int lastElem = lenV - 1;
-        const int lastCol = m - 1;
+        int lastCol = m - 1;
         
-        // TODO PartType > PartitionType::General... Need to fix this
-        if (PartType > PartitionType::Traditional) {
-            const bool IsDistinct = (PartType > PartitionType::TradNoZero);
+        if (PartType > PartitionType::PartGeneral) {
+            const bool IsDistinct = (PartType > PartitionType::PartTradNoZero);
             int boundary = lastCol;
             int edge = boundary - 1;
             
@@ -156,7 +157,7 @@ namespace Partitions {
             return partitionsMatrix;
         }
         
-        std::vector<typeVector> partitionsVec;
+        std::vector<int64_t> partitionsVec;
         const double vecMax = partitionsVec.max_size() / m;
         const double upperBound = std::min(vecMax, static_cast<double>(std::numeric_limits<int>::max()));
         const int maxRows = std::min(upperBound, numParts);
@@ -164,35 +165,17 @@ namespace Partitions {
         if (bUserRows)
             partitionsVec.reserve(maxRows * m);
         
-        if (IsComb && (IsRep || !IsMult)) {
-            // See comment above for nRows
-            const int nRows = static_cast<int>(numParts);
-            typeRcpp partitionsMatrix = Rcpp::no_init_matrix(nRows, nCols);
-            
-            if (IsRep) {
-                PartitionsRep(m, v, z, lastElem, lastCol, maxRows,
-                              IsComb, partitionsVec, partitionsMatrix);
-            } else {
-                PartitionsDistinct(m, v, z, lastElem, lastCol, maxRows,
-                                   IsComb, partitionsVec, partitionsMatrix);
-            }
-            
-            if (xtraCol)
-                for (int i = 0; i < nRows; ++i)
-                    partitionsMatrix(i, m) = target;
-            
-            return partitionsMatrix;
+        int result = 0;
+        
+        if (IsRep) {
+            result = PartitionsRep(m, v, target, lastElem, lastCol, maxRows, IsComb, partitionsVec);
+        } else if (IsMult) {
+            result = PartitionsMultiSet(m, v, target, lastElem, lastCol, maxRows, IsComb, Reps, partitionsVec);
         } else {
-            typeRcpp emptyMat;
-            
-            if (IsRep) {
-                PartitionsRep(m, v, z, lastElem, lastCol, maxRows, IsComb, partitionsVec, emptyMat);
-            } else if (IsMult) {
-                PartitionsMultiSet(m, v, z, lastElem, lastCol, maxRows, IsComb, Reps, partitionsVec);
-            } else {
-                PartitionsDistinct(m, v, z, lastElem, lastCol, maxRows, IsComb, partitionsVec, emptyMat);
-            }
-            
+            result = PartitionsDistinct(m, v, target, lastElem, lastCol, maxRows, IsComb, partitionsVec);
+        }
+        
+        if (result) {
             std::size_t partitionLen = partitionsVec.size();
             std::size_t numResult = partitionLen / m;
             typeRcpp partitionsMatrix = Rcpp::no_init_matrix(numResult, nCols);
@@ -212,14 +195,17 @@ namespace Partitions {
             }
             
             return partitionsMatrix;
+        } else {
+            typeRcpp trivialRet(0, m);
+            return trivialRet;
         }
     }
 }
 
-template Rcpp::IntegerMatrix Partitions::PartitionsMain(const std::vector<int>&, std::vector<int>&, 
-                                                        const std::vector<int>&, PartitionType, int, int,
-                                                        int, bool, bool, double, bool, bool, bool, bool, bool);
+template Rcpp::IntegerMatrix Partitions::PartitionsMaster(const std::vector<int64_t>&, std::vector<int>&, 
+                                                          const std::vector<int>&, PartitionType, int64_t, int,
+                                                          int, bool, bool, double, bool, bool, bool, bool, bool);
 
-template Rcpp::NumericMatrix Partitions::PartitionsMain(const std::vector<double>&, std::vector<int>&, 
-                                                        const std::vector<int>&, PartitionType, double, int,
-                                                        int, bool, bool, double, bool, bool, bool, bool, bool);
+template Rcpp::NumericMatrix Partitions::PartitionsMaster(const std::vector<int64_t>&, std::vector<int>&, 
+                                                          const std::vector<int>&, PartitionType, int64_t, int,
+                                                          int, bool, bool, double, bool, bool, bool, bool, bool);

@@ -1,26 +1,26 @@
 #include "GmpDependUtils.h"
-#include "Permutations.h"
 #include "CombPermPtr.h"
 #include "RMatrix.h"
 
 template <int T>
-void SerialReturn(const Rcpp::Vector<T> &v, Rcpp::Matrix<T> &matRcpp,
-                  std::vector<int> &z, int n, int m, int nRows, bool IsComb,
-                  bool IsRep, bool IsMult, bool generalRet,
-                  const std::vector<int> &freqs) {
-    
+Rcpp::Matrix<T> SerialReturn(const Rcpp::Vector<T> &v, std::vector<int> &z, int n,
+                             int m, int nRows, bool IsComb, bool IsRep, bool IsMult,
+                             bool generalRet, const std::vector<int> &freqs) {
+
+    Rcpp::Matrix<T> matRcpp = Rcpp::no_init_matrix(nRows, m);
     Rcpp::XPtr<combPermPtr<Rcpp::Matrix<T>, Rcpp::Vector<T>>> xpFunCoPePtr = 
         putCombPtrInXPtr<Rcpp::Matrix<T>, Rcpp::Vector<T>>(IsComb, IsMult, IsRep, generalRet);
 
     const combPermPtr<Rcpp::Matrix<T>, Rcpp::Vector<T>> myFunCombPerm = *xpFunCoPePtr;
     myFunCombPerm(matRcpp, v, z, n, m, 0, nRows, freqs);
+    return matRcpp;
 }
 
 template <typename typeRcpp, typename T>
-void MainReturn(typeRcpp &matRcpp, std::vector<T> v, int n, int m, bool IsRep, 
-                bool IsComb, bool IsMult, bool IsGmp, bool generalRet, const std::vector<int> &freqs,
-                std::vector<int> z, const std::vector<int> &myReps, double lower, mpz_t &lowerMpz,
-                int nRows, int nThreads, bool Parallel, int phaseOne) {
+void MasterReturn(typeRcpp &matRcpp, std::vector<T> v, int n, int m, bool IsRep, 
+                  bool IsComb, bool IsMult, bool IsGmp, bool generalRet, const std::vector<int> &freqs,
+                  std::vector<int> z, const std::vector<int> &myReps, double lower, mpz_t &lowerMpz,
+                  int nRows, int nThreads, bool Parallel, int phaseOne) {
 
     if (Parallel) {
         RcppParallel::RMatrix<T> parMat(matRcpp);
@@ -147,45 +147,30 @@ SEXP CombinatoricsStndrd(SEXP Rv, SEXP Rm, SEXP RisRep, SEXP RFreqs, SEXP Rlow,
     }
     
     const int phaseOne = (generalRet) ? 0 : static_cast<int>(phaseOneDbl);
-    
-    switch (myType) {
-        case VecType::Character : {
-            Rcpp::CharacterVector charVec(Rcpp::clone(Rv));
-            Rcpp::CharacterMatrix charMat = Rcpp::no_init_matrix(nRows, m);
-            SerialReturn(charVec, charMat, startZ, n, m, nRows,
-                         IsComb, IsRep, IsMult, generalRet, freqs);
-            return charMat;
-        } case VecType::Complex : {
-            Rcpp::ComplexVector cmplxVec(Rcpp::clone(Rv));
-            Rcpp::ComplexMatrix cmplxMat = Rcpp::no_init_matrix(nRows, m);
-            SerialReturn(cmplxVec, cmplxMat, startZ, n, m, nRows,
-                         IsComb, IsRep, IsMult, generalRet, freqs);
-            return cmplxMat;
-        } case VecType::Raw : {
-            Rcpp::RawVector rawVec(Rcpp::clone(Rv));
-            Rcpp::RawMatrix rawMat = Rcpp::no_init_matrix(nRows, m);
-            SerialReturn(rawVec, rawMat, startZ, n, m, nRows,
-                         IsComb, IsRep, IsMult, generalRet, freqs);
-            return rawMat;
-        } case VecType::Logical : {
-            Rcpp::LogicalVector boolVec(Rcpp::clone(Rv));
-            Rcpp::LogicalMatrix matBool = Rcpp::no_init_matrix(nRows, m);
-            SerialReturn(boolVec, matBool, startZ, n, m, nRows,
-                         IsComb, IsRep, IsMult, generalRet, freqs);
-            return matBool;
-        } case VecType::Integer : {
-            Rcpp::IntegerMatrix matInt = Rcpp::no_init_matrix(nRows, m);
-            MainReturn(matInt, vInt, n, m, IsRep, IsComb, IsMult,
-                       IsGmp, generalRet, freqs, startZ, myReps, lower,
-                       lowerMpz[0], nRows, nThreads, Parallel, phaseOne);
-            if (IsFactor) {SetFactorClass(matInt, Rv);}
-            return matInt;
-        } default : {
-            Rcpp::NumericMatrix matNum = Rcpp::no_init_matrix(nRows, m);
-            MainReturn(matNum, vNum, n, m, IsRep, IsComb, IsMult,
-                       IsGmp, generalRet, freqs, startZ, myReps, lower,
-                       lowerMpz[0], nRows, nThreads, Parallel, phaseOne);
-            return matNum;
-        }
+
+    if (myType > VecType::Logical) {
+        const SEXP sexpCopy(Rcpp::clone(Rv));
+        RCPP_RETURN_VECTOR(SerialReturn, sexpCopy, startZ, n, m, 
+                           nRows, IsComb, IsRep, IsMult, generalRet, freqs);
+    } else if (myType == VecType::Logical) {
+        Rcpp::LogicalMatrix matBool = Rcpp::no_init_matrix(nRows, m);
+        MasterReturn(matBool, vInt, n, m, IsRep, IsComb, IsMult,
+                     IsGmp, generalRet, freqs, startZ, myReps, lower,
+                     lowerMpz[0], nRows, nThreads, Parallel, phaseOne);
+        return matBool;
+    } else if (myType == VecType::Integer) {
+        Rcpp::IntegerMatrix matInt = Rcpp::no_init_matrix(nRows, m);
+        MasterReturn(matInt, vInt, n, m, IsRep, IsComb, IsMult,
+                     IsGmp, generalRet, freqs, startZ, myReps, lower,
+                     lowerMpz[0], nRows, nThreads, Parallel, phaseOne);
+        if (IsFactor) {SetFactorClass(matInt, Rv);}
+        return matInt;
+    } else {
+        Rcpp::NumericMatrix matNum = Rcpp::no_init_matrix(nRows, m);
+        MasterReturn(matNum, vNum, n, m, IsRep, IsComb, IsMult,
+                     IsGmp, generalRet, freqs, startZ, myReps, lower,
+                     lowerMpz[0], nRows, nThreads, Parallel, phaseOne);
+        return matNum;
     }
 }
+

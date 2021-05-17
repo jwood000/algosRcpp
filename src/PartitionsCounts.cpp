@@ -1,5 +1,5 @@
 #include "StandardCount.h"
-#include "PartitionEnums.h"
+#include "CleanConvert.h"
 
 // Credit to Robin K. S. Hankin, author of the excellent partitions package.
 // From the partitions.c, here are Hankin's comments for c_numbdiffparts:
@@ -80,115 +80,53 @@ double SumSection(int n) {
     return std::floor((sumOne - sumTwo - numIter / 2) / 2);
 }
 
-double CountPartLen(int n, int m) {
+// The algos below are modified versions of that found in:
+// (Credit to user @m69) https://stackoverflow.com/a/32918426/4408538
+//
+// These are faster as they skip many iterations as a result of
+// returning a result when m == 3 as opposed to m == 2. There are
+// more opportunities for improvements such as deriving a constant
+// time calculation when m == 4 (Currently under development).
+// *********************************************************************** //
+static std::vector<double> memoize;
+
+double pStd(int n, int m, int w) {
+    
+    if (memoize[(n - m) * w + m - 2])
+        return memoize[(n - m) * w + m - 2];
+    
+    if (m == 3)
+        return SumSection(n + 1);
+    
+    int myLim = n / m;
+    double count = 0;
+    
+    for (; myLim--; n -= m)
+        count += (memoize[(n - m) * w + m - 3] = pStd(n - 1, m - 1, w));
+    
+    return count;
+}
+
+double CountStdPartLen(int n, int m) {
     
     if (m < 2)
         return 1;
     
     if (m == 2)
-        return std::floor((n - 1) / 2);
+        return std::floor(n / 2);
     
-    const int limit = std::min(n - m, m);
-    n = (n < 2 * m) ? 2 * limit : n;
-    
-    std::vector<double> p1(n + 1);
-    std::vector<double> p2(n + 1);
-    
-    for (int i = 3; i <= n; ++i) {
-        p1[i] = SumSection(i + 1);
-    }
-    
-    for (int i = 4; i <= limit; ++i) {
-        const int m2 = i * 2;
-        int j = i + 1;
-        
-        if (i % 2) { 
-            p1[i] = 1;
-            
-            for (; j < m2; ++j) {
-                p1[j] = p2[j - 1];
-            }
-            
-            for (; j <= n; ++j) {
-                p1[j] = p2[j - 1] + p1[j - i];
-            }
-        } else {
-            p2[i] = 1;
-            
-            for (; j < m2; ++j) {
-                p2[j] = p1[j - 1];
-            }
-            
-            for (; j <= n; ++j) {
-                p2[j] = p1[j - 1] + p2[j - i];
-            }
-        }
-    }
-    
-    return (m % 2) ? p1.back() : p2.back();
-}
-
-// *********************************************************************** //
-
-int width;
-int blockSize;
-static std::vector<double> memoize;
-
-double pStdCap(int n, int m, int myMax) {
-    
-    if (myMax * m < n || n < m) return 0;
-    if (myMax * m == n || n <= m + 1) return 1;
-    if (m < 2) return m;
-    
-    const int block = myMax * blockSize + (n - m) * width + m - 2;
-    if (memoize[block]) return memoize[block];
-    
-    int niter = n / m;
-    
-    if (m == 2) {
-        if (myMax * 2 >= n) {
-            myMax = std::min(myMax, n - 1);
-            return niter - (n - 1 - myMax);
-        } else {
-            return 0;
-        }
-    }
-    
-    double count = 0;
-    
-    for (; niter--; n -= m, --myMax) {
-        count += (memoize[myMax * blockSize + (n - m) * width + m - 3] = pStdCap(n - 1, m - 1, myMax));
-    }
+    memoize.assign((n - m + 1) * m, 0.0);
+    double count = pStd(n, m, m);
     
     return count;
 }
 
-double CountPartLenCap(int n, int m, int myMax) {
-    
-    if (myMax * m < n || n < m) return 0;
-    if (myMax * m == n || n <= m + 1) return 1;
-    if (m < 2) return m;
-    
-    if (m == 2) {
-        if (myMax * 2 >= n) {
-            myMax = std::min(myMax, n - 1);
-            return n / m - (n - 1 - myMax);
-        } else {
-            return 0;
-        }
-    }
-    
-    width = m;
-    blockSize = m * (n - m + 1);
-    memoize = std::vector<double>((myMax + 1) * blockSize, 0.0);
-    
-    return pStdCap(n, m, myMax);
-}
+// *********************************************************************** //
 
-double pDist(int n, int m) {
+double pDist(int n, int m, int w) {
     
-    if (memoize[n * width + m]) 
-        return memoize[n * width + m];
+    if (memoize[n * w + m]) 
+        return memoize[n * w + m];
     
     if (m == 3)
         return SumSection(n - 2);
@@ -197,52 +135,12 @@ double pDist(int n, int m) {
     double count = 0;
     
     for (; --myLim; n -= m)
-        count += (memoize[(n - m) * width + m - 1] = pDist(n - m, m - 1));
+        count += (memoize[(n - m) * w + m - 1] = pDist(n - m, m - 1, w));
     
     return count;
 }
 
-double pDistCap(int n, int m, int myMax) {
-    
-    if (m > n || myMax < m) return 0;
-    
-    if (m == n) {
-        if (n == 1 && myMax >= 1) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-    
-    if (m == 1) {
-        if (myMax >= n) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-    
-    const int block = myMax * blockSize + (n - m) * width + m - 2;
-    
-    if (memoize[block])
-        return memoize[block];
-    
-    int test = (m * (m + 1)) / 2;
-    
-    if (test > n) return 0;
-    if (test == n) return 1;
-    
-    const int low = myMax - m;
-    test = (myMax * (myMax + 1) - low * (low + 1)) / 2;
-    
-    if (test < n) return 0;
-    if (test == n) return 1;
-    
-    double count = (memoize[block] = pDistCap(n - m, m - 1, myMax - 1) + pDistCap(n - m, m, myMax - 1));
-    return count;
-}
-
-double CountDistPartLen(int n, int m) {
+double CountDistinctPartLen(int n, int m) {
     
     if (m < 2)
         return 1;
@@ -250,57 +148,27 @@ double CountDistPartLen(int n, int m) {
     if (m == 2)
         return std::floor((n - 1) / 2);
     
-    width = m + 1;
     memoize.assign((n + 1) * (m + 1), 0.0);
-    return pDist(n, m);
-}
-
-double CountDistPartLenCap(int n, int m, int myMax) {
+    double count = pDist(n, m, m + 1);
     
-    if (m > n || myMax < m) return 0;
-    
-    if (m == n) {
-        if (n == 1 && myMax >= 1) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-    
-    if (m == 1) {
-        if (myMax >= n) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-    
-    width = m;
-    blockSize = m * (n - m + 1);
-    memoize = std::vector<double>((myMax + 1) * blockSize, 0.0);
-    
-    return pDistCap(n, m, myMax);
+    return count;
 }
 
 double GetComputedPartsComps(const std::vector<int> &z, PartitionType PartType, 
                              int target, int m, bool IsComb, bool IncludeZero, bool mIsNull) {
     
     double partCountTest = 0;
-    const bool IsDistinct = PartType > PartitionType::TradNoZero;
+    const bool IsDistinct = PartType > PartitionType::PartTradNoZero;
     const int startLen = std::count_if(z.cbegin(), z.cend(), 
                                        [](int i){return i > 0;});
     
     if (IsDistinct) {
         if (IsComb) {
-            if (PartType == PartitionType::DstctStdAll) {
+            if (PartType == PartitionType::PartDstctStdAll) {
                 partCountTest = c_numbdiffparts(target);
-            } else if (PartType == PartitionType::DistCapped) {
-                partCountTest = CountDistPartLenCap(target, m, z.back());
-            } else if (PartType == PartitionType::TradCapped) {
-                partCountTest = CountPartLenCap(target, m, z.back());
             } else {
                 for (int i = startLen; i <= m; ++i)
-                    partCountTest += CountDistPartLen(target, i);
+                    partCountTest += CountDistinctPartLen(target, i);
             }
         } else {
             if (IncludeZero) {
@@ -323,7 +191,7 @@ double GetComputedPartsComps(const std::vector<int> &z, PartitionType PartType,
                 if (mIsNull) {
                     
                     for (int i = startLen; i <= m; ++i)
-                        partCountTest += (CountDistPartLen(target, i) * NumPermsNoRep(i, i));
+                        partCountTest += (CountDistinctPartLen(target, i) * NumPermsNoRep(i, i));
                     
                 } else {
                     std::vector<int> permCountVec(m);
@@ -331,18 +199,18 @@ double GetComputedPartsComps(const std::vector<int> &z, PartitionType PartType,
                     
                     for (int i = startLen; i <= m; ++i) {
                         permCountVec[i - 1] = i;
-                        partCountTest += (CountDistPartLen(target, i)
+                        partCountTest += (CountDistinctPartLen(target, i)
                                               * NumPermsWithRep(permCountVec));
                     }
                 }
             } else {
-                partCountTest = CountDistPartLen(target, m) * NumPermsNoRep(m, m);
+                partCountTest = CountDistinctPartLen(target, m) * NumPermsNoRep(m, m);
             }
         }
     } else {
         if (IsComb) {
             for (int i = startLen; i <= m; ++i)
-                partCountTest += CountPartLen(target, i);
+                partCountTest += CountStdPartLen(target, i);
             
         } else if (mIsNull && IncludeZero) {
             partCountTest = std::pow(2.0, static_cast<double>(target - 1));

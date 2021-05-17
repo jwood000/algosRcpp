@@ -6,10 +6,10 @@
 #include <RcppThread.h>
 
 template <typename typeInt, typename typeReturn, typename typeRcpp>
-void MotleyMain(typeInt myMin, typeReturn myMax, bool isEuler,
-                typeRcpp &EulerPhis, std::vector<typeInt> &numSeq,
-                std::vector<std::vector<typeInt>> &primeList,
-                int nThreads, int maxThreads) {
+void MotleyMaster(typeInt myMin, typeReturn myMax, bool isEuler,
+                  typeRcpp &EulerPhis, std::vector<typeInt> &numSeq,
+                  std::vector<std::vector<typeInt>> &primeList,
+                  int nThreads, int maxThreads) {
     
     bool Parallel = false;
     std::int_fast64_t myRange = (myMax - myMin) + 1;
@@ -87,8 +87,8 @@ SEXP GlueMotley(typeInt myMin, typeReturn myMax, bool isEuler,
         std::vector<std::vector<typeInt>> tempList;
         typeRcpp EulerPhis(myRange);
         std::vector<typeInt> numSeq(myRange);
-        MotleyMain(myMin, myMax, isEuler, EulerPhis,
-                   numSeq, tempList, nThreads, maxThreads);
+        MotleyMaster(myMin, myMax, isEuler, EulerPhis,
+                     numSeq, tempList, nThreads, maxThreads);
         
         if (keepNames)
             EulerPhis.attr("names") = myNames;
@@ -99,8 +99,8 @@ SEXP GlueMotley(typeInt myMin, typeReturn myMax, bool isEuler,
             primeList(myRange, std::vector<typeInt>());
         typeRcpp tempRcpp;
         std::vector<typeInt> tempVec;
-        MotleyMain(myMin, myMax, isEuler, tempRcpp,
-                   tempVec, primeList, nThreads, maxThreads);
+        MotleyMaster(myMin, myMax, isEuler, tempRcpp,
+                     tempVec, primeList, nThreads, maxThreads);
         
         Rcpp::List myList = Rcpp::wrap(primeList);
         

@@ -6,7 +6,7 @@
 #include <mutex>
 #include <cmath>
 
-// "MainPrimeCount" based off of the highly optimized
+// "MasterPrimeCount" based off of the highly optimized
 // "pi_legendre.cpp" algorithm by Kim Walisch, which calculates
 // the numbers of primes less than n using Legendre's formula.
 // Kim Walisch's official github repo for "pi_legendre" is:
@@ -43,12 +43,11 @@ namespace PrimeCounting {
         sieve[1] = 0;
         
         std::int64_t sqrPrime = 9;
-        std::int64_t lowerBnd = 0;
-        std::int64_t myNum = 1;
+        std::int64_t lowerBnd = 0, upperBnd = segSize, myNum = 1;
         std::size_t p = 1;
         
         for (; lowerBnd < flrMaxNum; lowerBnd += segSize) {
-            std::int64_t upperBnd = lowerBnd + segSize;
+            upperBnd = lowerBnd + segSize;
             
             for (; sqrPrime <= upperBnd; ++p) {
                 nextStrt.push_back(sqrPrime - lowerBnd);
@@ -203,7 +202,7 @@ namespace PrimeCounting {
         return std::log(factor[it - nums.cbegin()]);
     }
     
-    std::int64_t phiMain(std::int64_t x, std::int64_t a, int nThreads, bool Parallel) {
+    std::int64_t phiMaster(std::int64_t x, std::int64_t a, int nThreads, bool Parallel) {
         
         const std::int64_t sqrtx = static_cast<std::int64_t>(std::sqrt(static_cast<double>(x)));
         const std::int64_t piSqrtx = std::min(static_cast<std::int64_t>(phiPi[sqrtx]), a);
@@ -317,7 +316,7 @@ namespace PrimeCounting {
     // MAX VALUE (2^53 - 1) -->> 
     //            252,252,704,148,404   -->> 352.862 seconds
     
-    std::int64_t MainPrimeCount(std::int64_t n, int nThreads = 1, int maxThreads = 1) {
+    std::int64_t MasterPrimeCount(std::int64_t n, int nThreads = 1, int maxThreads = 1) {
         
         const std::int64_t sqrtBound = static_cast<std::int64_t>(std::sqrt(static_cast<double>(n)));
         std::vector<std::int64_t> resetPhiPrimes;
@@ -347,7 +346,7 @@ namespace PrimeCounting {
         }
         
         const std::int64_t piSqrt = PiPrime(sqrtBound);
-        const std::int64_t phiSqrt = phiMain(n, piSqrt, nThreads, Parallel);
+        const std::int64_t phiSqrt = phiMaster(n, piSqrt, nThreads, Parallel);
         const std::int64_t int64result = piSqrt + phiSqrt - 1;
         
         return int64result;
@@ -381,7 +380,7 @@ SEXP PrimeCountRcpp(SEXP Rn, SEXP RNumThreads, int maxThreads) {
     if (!Rf_isNull(RNumThreads))
         CleanConvert::convertPrimitive(RNumThreads, nThreads, "nThreads");
     
-    std::int64_t result = PrimeCounting::MainPrimeCount(n, nThreads, maxThreads);
+    std::int64_t result = PrimeCounting::MasterPrimeCount(n, nThreads, maxThreads);
     
     if (result > std::numeric_limits<int>::max()) {
         return Rcpp::wrap(static_cast<double>(result));
